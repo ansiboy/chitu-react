@@ -1,0 +1,24 @@
+{
+  "name": "maishu-chitu-react",
+  "version": "1.0.4",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ansiboy/chitu-react.git"
+  },
+  "author": "mai.shu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ansiboy/chitu-react/issues"
+  },
+  "homepage": "https://github.com/ansiboy/chitu-react#readme",
+  "dependencies": {
+    "@types/react": "^16.7.11",
+    "@types/react-dom": "^16.0.11",
+    "maishu-chitu": "^2.0.7"
+  }
+}
