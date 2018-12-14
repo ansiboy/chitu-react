@@ -4,10 +4,10 @@
         "module": "umd",
         "declaration": true,
         "baseUrl": "./",
+        "outDir": "../out",
         "paths": {
             "maishu-chitu": [
-                "node_modules/maishu-chitu/dist/chitu.d.ts",
-                "../maishu-chitu/dist/chitu.d.ts"
+                "../node_modules/maishu-chitu/dist/chitu.d.ts",
             ]
         }
     }
