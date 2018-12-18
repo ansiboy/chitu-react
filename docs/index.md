@@ -50,12 +50,12 @@ npm install maishu-chitu-react
             "module": "amd",
             "baseUrl": "./",
             "paths": {
-                "maishu-chitu": [
+               "maishu-chitu": [
                     "node_modules/maishu-chitu/dist/chitu.d.ts"
                 ],
                 "maishu-chitu-react": [
                     "node_modules/maishu-chitu-react/out/index.d.ts"
-                ]
+                ] 
             }
         }
     }

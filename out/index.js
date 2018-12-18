@@ -20,6 +20,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     const React = require("react");
     const ReactDOM = require("react-dom");
     const chitu = require("maishu-chitu");
+    class Page extends chitu.Page {
+    }
+    exports.Page = Page;
     class Application extends chitu.Application {
         createDefaultAction(url, loadjs) {
             return (page) => __awaiter(this, void 0, void 0, function* () {
@@ -40,7 +43,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
                 let app = this;
                 let props = Object.assign({}, page.data, { app });
                 let element = React.createElement(action, props);
-                ReactDOM.render(element, page.element);
+                let component = ReactDOM.render(element, page.element);
+                page.component = component;
                 return element;
             });
         }

@@ -8,9 +8,13 @@ type LoadJS = (path: string) => Promise<{
     };
 }>;
 
+export class Page extends chitu.Page {
+    component: React.Component
+}
+
 export class Application extends chitu.Application {
     protected createDefaultAction(url: string, loadjs: (path: string) => Promise<any>) {
-        return async (page: chitu.Page) => {
+        return async (page: Page) => {
             let actionExports = await (loadjs as LoadJS)(url);
             if (!actionExports)
                 throw chitu.Errors.exportsCanntNull(url);
@@ -31,7 +35,8 @@ export class Application extends chitu.Application {
             let app = this as Application
             let props = Object.assign({}, page.data, { app })
             let element = React.createElement(action, props)
-            ReactDOM.render(element, page.element)
+            let component = ReactDOM.render(element, page.element) as any as React.Component
+            page.component = component
             return element;
         }
     }
