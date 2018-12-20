@@ -41,7 +41,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
                     action = _action;
                 }
                 let app = this;
-                let props = Object.assign({}, page.data, { app });
+                let props = {
+                    app,
+                    data: page.data,
+                    createService(type) {
+                        return page.createService(type);
+                    }
+                };
                 let element = React.createElement(action, props);
                 let component = ReactDOM.render(element, page.element);
                 page.component = component;

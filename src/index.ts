@@ -8,6 +8,12 @@ type LoadJS = (path: string) => Promise<{
     };
 }>;
 
+export interface PageProps {
+    app: Application,
+    data: chitu.Page["data"],
+    createService: chitu.Page["createService"]
+}
+
 export class Page extends chitu.Page {
     component: React.Component
 }
@@ -33,7 +39,13 @@ export class Application extends chitu.Application {
             }
 
             let app = this as Application
-            let props = Object.assign({}, page.data, { app })
+            let props: PageProps = {
+                app,
+                data: page.data,
+                createService<T extends chitu.Service>(type?: chitu.ServiceConstructor<T>) {
+                    return page.createService<T>(type)
+                }
+            } 
             let element = React.createElement(action, props)
             let component = ReactDOM.render(element, page.element) as any as React.Component
             page.component = component
