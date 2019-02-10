@@ -3,6 +3,7 @@ import * as chitu from 'maishu-chitu';
 export interface PageProps {
     app: Application;
     data: chitu.Page["data"];
+    source: chitu.Page;
     createService: chitu.Page["createService"];
 }
 export declare class Page extends chitu.Page {

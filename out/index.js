@@ -44,6 +44,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
                 let props = {
                     app,
                     data: page.data,
+                    source: page,
                     createService(type) {
                         return page.createService(type);
                     }

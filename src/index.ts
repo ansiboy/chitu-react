@@ -3,7 +3,7 @@ import ReactDOM = require("react-dom");
 import * as chitu from 'maishu-chitu'
 
 type LoadJS = (path: string) => Promise<{
-    defalut: (props: any, app: chitu.PageMaster) => React.ReactElement<any> | {
+    default: (props: any, app: chitu.PageMaster) => React.ReactElement<any> | {
         new(props: any, app: chitu.PageMaster): React.ReactElement<any>;
     };
 }>;
@@ -11,16 +11,17 @@ type LoadJS = (path: string) => Promise<{
 export interface PageProps {
     app: Application,
     data: chitu.Page["data"],
+    source: chitu.Page,
     createService: chitu.Page["createService"]
 }
 
 export class Page extends chitu.Page {
-    component: React.Component
+    component: React.Component | null = null
 }
 
 export class Application extends chitu.Application {
-    protected createDefaultAction(url: string, loadjs: (path: string) => Promise<any>) {
-        return async (page: Page) => {
+    protected createDefaultAction(url: string, loadjs: (path: string) => Promise<any>): chitu.Action {
+        return async (page: chitu.Page) => {
             let actionExports = await (loadjs as LoadJS)(url);
             if (!actionExports)
                 throw chitu.Errors.exportsCanntNull(url);
@@ -31,25 +32,23 @@ export class Application extends chitu.Application {
             }
 
             let action: any;
-            if (chitu.PageMaster.isClass(_action)) {
-                action = _action as any
-            }
-            else {
-                action = _action as any
+            if (!chitu.PageMaster.isClass(_action)) {
+                return _action(page, this)
             }
 
+            action = _action as any
             let app = this as Application
             let props: PageProps = {
                 app,
-                data: page.data,
+                data: page.data as { [key: string]: any },
+                source: page,
                 createService<T extends chitu.Service>(type?: chitu.ServiceConstructor<T>) {
                     return page.createService<T>(type)
                 }
-            } 
+            }
             let element = React.createElement(action, props)
             let component = ReactDOM.render(element, page.element) as any as React.Component
-            page.component = component
-            return element;
+            (page as Page).component = component
         }
     }
 }
