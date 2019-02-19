@@ -1697,7 +1697,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "react", "./controls/page-spiner", "minirefresh", "./css/minirefresh.css"], factory);
+        define(["require", "exports", "react", "./controls/page-spiner", "minirefresh"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -1705,7 +1705,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     const React = require("react");
     const page_spiner_1 = require("./controls/page-spiner");
     const MiniRefreshTools = require("minirefresh");
-    require("./css/minirefresh.css");
     function dataPage(options) {
         options = options || {};
         return function (constructor) {
@@ -1806,14 +1805,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     exports.dataPage = dataPage;
 });
 
-},{"./controls/page-spiner":5,"./css/minirefresh.css":7,"minirefresh":3,"react":"react"}],9:[function(require,module,exports){
+},{"./controls/page-spiner":5,"minirefresh":3,"react":"react"}],9:[function(require,module,exports){
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         var v = factory(require, exports);
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./application", "./data-page", "./css/index.css"], factory);
+        define(["require", "exports", "./application", "./data-page", "./css/index.css", "./css/minirefresh.css"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -1824,7 +1823,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     var data_page_1 = require("./data-page");
     exports.dataPage = data_page_1.dataPage;
     require("./css/index.css");
+    require("./css/minirefresh.css");
 });
 
-},{"./application":4,"./css/index.css":6,"./data-page":8}]},{},[9])(9)
+},{"./application":4,"./css/index.css":6,"./css/minirefresh.css":7,"./data-page":8}]},{},[9])(9)
 });

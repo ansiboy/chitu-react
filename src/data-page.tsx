@@ -3,7 +3,6 @@ import { PageSpiner, PageSpinerContext } from "./controls/page-spiner";
 import MiniRefreshTools = require('minirefresh');
 import { PageProps } from "./application";
 import { MiniRefreshTheme } from "minirefresh";
-import './css/minirefresh.css'
 
 interface DataPageOptions<R1, R2> {
     load: () => Promise<R1>,

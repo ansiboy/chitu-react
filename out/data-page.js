@@ -12,7 +12,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "react", "./controls/page-spiner", "minirefresh", "./css/minirefresh.css"], factory);
+        define(["require", "exports", "react", "./controls/page-spiner", "minirefresh"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -20,7 +20,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     const React = require("react");
     const page_spiner_1 = require("./controls/page-spiner");
     const MiniRefreshTools = require("minirefresh");
-    require("./css/minirefresh.css");
     function dataPage(options) {
         options = options || {};
         return function (constructor) {

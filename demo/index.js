@@ -8,7 +8,6 @@ requirejs.config({
         "react-dom": `${node_modules}/react-dom/umd/react-dom.development`,
         "maishu-chitu": `${node_modules}/maishu-chitu/dist/chitu`,
 
-        "../../out/index": "../../dist/index"
     }
 })
 

@@ -4,7 +4,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./application", "./data-page", "./css/index.css"], factory);
+        define(["require", "exports", "./application", "./data-page", "./css/index.css", "./css/minirefresh.css"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -15,4 +15,5 @@
     var data_page_1 = require("./data-page");
     exports.dataPage = data_page_1.dataPage;
     require("./css/index.css");
+    require("./css/minirefresh.css");
 });

@@ -1,7 +1,6 @@
 import React = require("react");
 import { PageSpiner } from "./controls/page-spiner";
 import { PageProps } from "./application";
-import './css/minirefresh.css';
 interface DataPageOptions<R1, R2> {
     load: () => Promise<R1>;
     loadMore?: (pageIndex: number) => Promise<R2>;
