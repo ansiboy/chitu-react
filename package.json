@@ -1,6 +1,6 @@
 {
   "name": "maishu-chitu-react",
-  "version": "1.1.6",
+  "version": "1.1.8",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
