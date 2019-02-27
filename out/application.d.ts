@@ -10,7 +10,7 @@ export declare class Page extends chitu.Page {
     component: React.Component | null;
 }
 export declare class Application extends chitu.Application {
-    constructor(args: {
+    constructor(args?: {
         parser?: chitu.PageNodeParser;
         container?: HTMLElement;
     });
