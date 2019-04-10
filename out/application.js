@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = require("react");
 const ReactDOM = require("react-dom");
 const chitu = require("maishu-chitu");
+const errors_1 = require("./errors");
 class Page extends chitu.Page {
     constructor() {
         super(...arguments);
@@ -29,10 +30,10 @@ class Application extends chitu.Application {
         return (page) => __awaiter(this, void 0, void 0, function* () {
             let actionExports = yield loadjs(url);
             if (!actionExports)
-                throw chitu.Errors.exportsCanntNull(url);
+                throw errors_1.Errors.exportsCanntNull(url);
             let _action = actionExports['default'];
             if (_action == null) {
-                throw chitu.Errors.canntFindAction(page.name);
+                throw errors_1.Errors.canntFindAction(page.name);
             }
             let action;
             if (!chitu.PageMaster.isClass(_action)) {

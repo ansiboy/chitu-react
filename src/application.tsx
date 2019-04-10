@@ -1,6 +1,8 @@
 import React = require("react");
 import ReactDOM = require("react-dom");
 import * as chitu from 'maishu-chitu'
+import { ServiceConstructor, IService } from "maishu-chitu-service/out/service";
+import { Errors } from "./errors";
 
 type LoadJS = (path: string) => Promise<{
     default: (props: any, app: chitu.PageMaster) => React.ReactElement<any> | {
@@ -34,11 +36,11 @@ export class Application extends chitu.Application {
         return async (page: chitu.Page) => {
             let actionExports = await (loadjs as LoadJS)(url);
             if (!actionExports)
-                throw chitu.Errors.exportsCanntNull(url);
+                throw Errors.exportsCanntNull(url);
 
             let _action = actionExports['default']
             if (_action == null) {
-                throw chitu.Errors.canntFindAction(page.name);
+                throw Errors.canntFindAction(page.name);
             }
 
             let action: any;
@@ -52,7 +54,7 @@ export class Application extends chitu.Application {
                 app,
                 data: page.data as { [key: string]: any },
                 source: page,
-                createService<T extends chitu.Service>(type?: chitu.ServiceConstructor<T>) {
+                createService<T extends IService>(type?: ServiceConstructor<T>) {
                     return page.createService<T>(type)
                 }
             }
