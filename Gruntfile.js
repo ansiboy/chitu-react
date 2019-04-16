@@ -52,12 +52,6 @@ module.exports = function (grunt) {
                 options: {
                     baseUrl: `./`,
                     include: ['./out/index.js'],
-                    exclude: [
-                        "maishu-chitu",
-                        "maishu-chitu-service",
-                        "react",
-                        "react-dom"
-                    ],
                     // name: 'maishu-chitu-react',
                     out: `dist/index.js`,
                     optimize: "none",
