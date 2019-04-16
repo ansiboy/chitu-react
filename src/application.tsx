@@ -1,7 +1,7 @@
 import React = require("react");
 import ReactDOM = require("react-dom");
 import * as chitu from 'maishu-chitu'
-import { ServiceConstructor, IService } from "maishu-chitu-service/out/service";
+import { ServiceConstructor, IService } from "maishu-chitu-service";
 import { Errors } from "./errors";
 
 type LoadJS = (path: string) => Promise<{

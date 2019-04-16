@@ -28,8 +28,11 @@ module.exports = function (grunt) {
                 browserifyOptions: {
                     standalone: pkg.name,
                 },
-                external: ['react', 'react-dom', 'maishu-chitu'],
+                external: ['react', 'react-dom'],
                 transform: ['browserify-css'],
+                alias: [
+                    `./node_modules/maishu-chitu/out/index.js:maishu-chitu`,
+                ],
             }
         },
         shell: {
