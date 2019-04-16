@@ -2,17 +2,19 @@
     "compilerOptions": {
         "experimentalDecorators": true,
         "target": "es6",
-        "module": "commonjs",
+        "module": "amd",
         "declaration": true,
         "baseUrl": "./",
         "outDir": "../out",
         "paths": {
             "maishu-chitu": [
                 "../node_modules/maishu-chitu/out/index.d.ts",
+            ],
+            "maishu-chitu-service": [
+                "../node_modules/maishu-chitu-service/out/index.d.ts",
             ]
         },
         "strict": true,
         "jsx": "react",
-        
     }
 }
