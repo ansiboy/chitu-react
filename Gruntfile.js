@@ -1,8 +1,20 @@
 let node_modules = 'node_modules'
 
+
+
 module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
+    let pkg = grunt.file.readJSON('package.json');
+    let license = `
+/*
+ * ${pkg.name} v${pkg.version}
+ * https://github.com/ansiboy/chitu-react
+ *
+ * Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
+ * Licensed under the MIT License.
+ *
+ */`;
 
     grunt.initConfig({
         browserify: {
@@ -12,19 +24,12 @@ module.exports = function (grunt) {
                 }
             },
             options: {
-                transform: ['browserify-css'],
+                banner: license,
                 browserifyOptions: {
-                    standalone: 'chitu_react',
+                    standalone: pkg.name,
                 },
-                external: ['react', 'react-dom']
-            }
-        },
-        copy: {
-            dist: {
-                files: [
-                    // includes files within path
-                    { expand: true, cwd: 'out', src: ['**/*.d.ts'], dest: 'dist/', filter: 'isFile' },
-                ]
+                external: ['react', 'react-dom', 'maishu-chitu'],
+                transform: ['browserify-css'],
             }
         },
         shell: {
@@ -34,5 +39,5 @@ module.exports = function (grunt) {
         },
     })
 
-    grunt.registerTask('default', ['shell', 'browserify', 'copy']);
+    grunt.registerTask('default', ['shell', 'browserify']);
 }
