@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.5.16
+ *  maishu-chitu-react v1.5.18
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
