@@ -5,7 +5,7 @@
         "module": "amd",
         "declaration": true,
         "baseUrl": "./",
-        "outDir": "../out",
+        "outDir": "../out/es6",
         "paths": {
             "maishu-chitu": [
                 "../node_modules/maishu-chitu/out/index.d.ts",

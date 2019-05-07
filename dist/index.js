@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.5.12
+ *  maishu-chitu-react v1.5.14
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -90,41 +90,41 @@ define(["maishu-chitu","react","react-dom"], function(__WEBPACK_EXTERNAL_MODULE_
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./out/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./out/es6/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./out/application.js":
-/*!****************************!*\
-  !*** ./out/application.js ***!
-  \****************************/
+/***/ "./out/es6/application.js":
+/*!********************************!*\
+  !*** ./out/es6/application.js ***!
+  \********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\r\n    return new (P || (P = Promise))(function (resolve, reject) {\r\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\r\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\r\n        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }\r\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\r\n    });\r\n};\r\n!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! react */ \"react\"), __webpack_require__(/*! react-dom */ \"react-dom\"), __webpack_require__(/*! maishu-chitu */ \"maishu-chitu\"), __webpack_require__(/*! ./errors */ \"./out/errors.js\")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, React, ReactDOM, chitu, errors_1) {\r\n    \"use strict\";\r\n    Object.defineProperty(exports, \"__esModule\", { value: true });\r\n    class Page extends chitu.Page {\r\n        constructor() {\r\n            super(...arguments);\r\n            this.component = null;\r\n        }\r\n    }\r\n    exports.Page = Page;\r\n    class Application extends chitu.Application {\r\n        constructor(args) {\r\n            super(args);\r\n            this.pageCreated.add((sender, page) => {\r\n                page.element.className = \"page\";\r\n            });\r\n        }\r\n        createDefaultAction(url, loadjs) {\r\n            return (page) => __awaiter(this, void 0, void 0, function* () {\r\n                let actionExports = yield loadjs(url);\r\n                if (!actionExports)\r\n                    throw errors_1.Errors.exportsCanntNull(url);\r\n                let _action = actionExports['default'];\r\n                if (_action == null) {\r\n                    throw errors_1.Errors.canntFindAction(page.name);\r\n                }\r\n                let action;\r\n                if (!chitu.PageMaster.isClass(_action)) {\r\n                    return _action(page, this);\r\n                }\r\n                action = _action;\r\n                let app = this;\r\n                let props = {\r\n                    app,\r\n                    data: page.data,\r\n                    source: page,\r\n                    createService(type) {\r\n                        return page.createService(type);\r\n                    }\r\n                };\r\n                let element = React.createElement(action, props);\r\n                let component = ReactDOM.render(element, page.element);\r\n                page.component = component;\r\n            });\r\n        }\r\n    }\r\n    exports.Application = Application;\r\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\r\n\n\n//# sourceURL=webpack:///./out/application.js?");
+eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\r\n    return new (P || (P = Promise))(function (resolve, reject) {\r\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\r\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\r\n        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }\r\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\r\n    });\r\n};\r\n!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! react */ \"react\"), __webpack_require__(/*! react-dom */ \"react-dom\"), __webpack_require__(/*! maishu-chitu */ \"maishu-chitu\"), __webpack_require__(/*! ./errors */ \"./out/es6/errors.js\")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, React, ReactDOM, chitu, errors_1) {\r\n    \"use strict\";\r\n    Object.defineProperty(exports, \"__esModule\", { value: true });\r\n    class Page extends chitu.Page {\r\n        constructor() {\r\n            super(...arguments);\r\n            this.component = null;\r\n        }\r\n    }\r\n    exports.Page = Page;\r\n    class Application extends chitu.Application {\r\n        constructor(args) {\r\n            super(args);\r\n            this.pageCreated.add((sender, page) => {\r\n                page.element.className = \"page\";\r\n            });\r\n        }\r\n        createDefaultAction(url, loadjs) {\r\n            return (page) => __awaiter(this, void 0, void 0, function* () {\r\n                let actionExports = yield loadjs(url);\r\n                if (!actionExports)\r\n                    throw errors_1.Errors.exportsCanntNull(url);\r\n                let _action = actionExports['default'];\r\n                if (_action == null) {\r\n                    throw errors_1.Errors.canntFindAction(page.name);\r\n                }\r\n                let action;\r\n                if (!chitu.PageMaster.isClass(_action)) {\r\n                    return _action(page, this);\r\n                }\r\n                action = _action;\r\n                let app = this;\r\n                let props = {\r\n                    app,\r\n                    data: page.data,\r\n                    source: page,\r\n                    createService(type) {\r\n                        return page.createService(type);\r\n                    }\r\n                };\r\n                let element = React.createElement(action, props);\r\n                let component = ReactDOM.render(element, page.element);\r\n                page.component = component;\r\n            });\r\n        }\r\n    }\r\n    exports.Application = Application;\r\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\r\n\n\n//# sourceURL=webpack:///./out/es6/application.js?");
 
 /***/ }),
 
-/***/ "./out/errors.js":
-/*!***********************!*\
-  !*** ./out/errors.js ***!
-  \***********************/
+/***/ "./out/es6/errors.js":
+/*!***************************!*\
+  !*** ./out/es6/errors.js ***!
+  \***************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {\r\n    \"use strict\";\r\n    Object.defineProperty(exports, \"__esModule\", { value: true });\r\n    class Errors {\r\n        static canntFindAction(pageName) {\r\n            let msg = `Cannt find action in page '${pageName}', is the exports has default field?`;\r\n            return new Error(msg);\r\n        }\r\n        static exportsCanntNull(pageName) {\r\n            let msg = `Exports of page '${pageName}' is null.`;\r\n            return new Error(msg);\r\n        }\r\n    }\r\n    exports.Errors = Errors;\r\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\r\n\n\n//# sourceURL=webpack:///./out/errors.js?");
+eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {\r\n    \"use strict\";\r\n    Object.defineProperty(exports, \"__esModule\", { value: true });\r\n    class Errors {\r\n        static canntFindAction(pageName) {\r\n            let msg = `Cannt find action in page '${pageName}', is the exports has default field?`;\r\n            return new Error(msg);\r\n        }\r\n        static exportsCanntNull(pageName) {\r\n            let msg = `Exports of page '${pageName}' is null.`;\r\n            return new Error(msg);\r\n        }\r\n    }\r\n    exports.Errors = Errors;\r\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\r\n\n\n//# sourceURL=webpack:///./out/es6/errors.js?");
 
 /***/ }),
 
-/***/ "./out/index.js":
-/*!**********************!*\
-  !*** ./out/index.js ***!
-  \**********************/
+/***/ "./out/es6/index.js":
+/*!**************************!*\
+  !*** ./out/es6/index.js ***!
+  \**************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./application */ \"./out/application.js\")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, application_1) {\r\n    \"use strict\";\r\n    Object.defineProperty(exports, \"__esModule\", { value: true });\r\n    exports.Application = application_1.Application;\r\n    exports.Page = application_1.Page;\r\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\r\n// export { dataPage, DataPageContext, DataPageProps, DataPageState } from './data-page'\r\n// import './css/index.css'\r\n// import './css/minirefresh.css'\r\n\n\n//# sourceURL=webpack:///./out/index.js?");
+eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./application */ \"./out/es6/application.js\")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, application_1) {\r\n    \"use strict\";\r\n    Object.defineProperty(exports, \"__esModule\", { value: true });\r\n    exports.Application = application_1.Application;\r\n    exports.Page = application_1.Page;\r\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\r\n// export { dataPage, DataPageContext, DataPageProps, DataPageState } from './data-page'\r\n// import './css/index.css'\r\n// import './css/minirefresh.css'\r\n\n\n//# sourceURL=webpack:///./out/es6/index.js?");
 
 /***/ }),
 
