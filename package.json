@@ -1,6 +1,6 @@
 {
   "name": "maishu-chitu-react",
-  "version": "1.5.10",
+  "version": "1.5.12",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "@types/react": "^16.7.11",
     "@types/react-dom": "^16.0.11",
     "maishu-chitu": "^2.9.4",
+    "maishu-chitu-service": "^1.1.4",
     "react": "^16.8.2",
     "react-dom": "^16.8.2"
   },
