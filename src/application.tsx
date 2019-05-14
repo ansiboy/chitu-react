@@ -44,9 +44,9 @@ export class Application extends chitu.Application {
             }
 
             let action: any;
-            if (!chitu.PageMaster.isClass(_action)) {
-                return _action(page, this)
-            }
+            // if (!chitu.PageMaster.isClass(_action)) {
+            //     return _action(page, this)
+            // }
 
             action = _action as any
             let app = this as Application

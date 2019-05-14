@@ -15,6 +15,7 @@ module.exports = {
         libraryTarget: 'amd'
     },
     mode: 'development',
+    devtool: 'source-map',
     externals: ['react', 'react-dom', 'maishu-chitu'],
     plugins: [
         new webpack.BannerPlugin(license),

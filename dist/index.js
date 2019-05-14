@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.5.18
+ *  maishu-chitu-react v1.5.28
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -102,7 +102,64 @@ define(["maishu-chitu","react","react-dom"], function(__WEBPACK_EXTERNAL_MODULE_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\r\n    return new (P || (P = Promise))(function (resolve, reject) {\r\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\r\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\r\n        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }\r\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\r\n    });\r\n};\r\n!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! react */ \"react\"), __webpack_require__(/*! react-dom */ \"react-dom\"), __webpack_require__(/*! maishu-chitu */ \"maishu-chitu\"), __webpack_require__(/*! ./errors */ \"./out/errors.js\")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, React, ReactDOM, chitu, errors_1) {\r\n    \"use strict\";\r\n    Object.defineProperty(exports, \"__esModule\", { value: true });\r\n    class Page extends chitu.Page {\r\n        constructor() {\r\n            super(...arguments);\r\n            this.component = null;\r\n        }\r\n    }\r\n    exports.Page = Page;\r\n    class Application extends chitu.Application {\r\n        constructor(args) {\r\n            super(args);\r\n            this.pageCreated.add((sender, page) => {\r\n                page.element.className = \"page\";\r\n            });\r\n        }\r\n        createDefaultAction(url, loadjs) {\r\n            return (page) => __awaiter(this, void 0, void 0, function* () {\r\n                let actionExports = yield loadjs(url);\r\n                if (!actionExports)\r\n                    throw errors_1.Errors.exportsCanntNull(url);\r\n                let _action = actionExports['default'];\r\n                if (_action == null) {\r\n                    throw errors_1.Errors.canntFindAction(page.name);\r\n                }\r\n                let action;\r\n                if (!chitu.PageMaster.isClass(_action)) {\r\n                    return _action(page, this);\r\n                }\r\n                action = _action;\r\n                let app = this;\r\n                let props = {\r\n                    app,\r\n                    data: page.data,\r\n                    source: page,\r\n                    createService(type) {\r\n                        return page.createService(type);\r\n                    }\r\n                };\r\n                let element = React.createElement(action, props);\r\n                let component = ReactDOM.render(element, page.element);\r\n                page.component = component;\r\n            });\r\n        }\r\n    }\r\n    exports.Application = Application;\r\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\r\n\n\n//# sourceURL=webpack:///./out/application.js?");
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! react */ "react"), __webpack_require__(/*! react-dom */ "react-dom"), __webpack_require__(/*! maishu-chitu */ "maishu-chitu"), __webpack_require__(/*! ./errors */ "./out/errors.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, React, ReactDOM, chitu, errors_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    class Page extends chitu.Page {
+        constructor() {
+            super(...arguments);
+            this.component = null;
+        }
+    }
+    exports.Page = Page;
+    class Application extends chitu.Application {
+        constructor(args) {
+            super(args);
+            this.pageCreated.add((sender, page) => {
+                page.element.className = "page";
+            });
+        }
+        createDefaultAction(url, loadjs) {
+            return (page) => __awaiter(this, void 0, void 0, function* () {
+                let actionExports = yield loadjs(url);
+                if (!actionExports)
+                    throw errors_1.Errors.exportsCanntNull(url);
+                let _action = actionExports['default'];
+                if (_action == null) {
+                    throw errors_1.Errors.canntFindAction(page.name);
+                }
+                let action;
+                // if (!chitu.PageMaster.isClass(_action)) {
+                //     return _action(page, this)
+                // }
+                action = _action;
+                let app = this;
+                let props = {
+                    app,
+                    data: page.data,
+                    source: page,
+                    createService(type) {
+                        return page.createService(type);
+                    }
+                };
+                let element = React.createElement(action, props);
+                let component = ReactDOM.render(element, page.element);
+                page.component = component;
+            });
+        }
+    }
+    exports.Application = Application;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
 
 /***/ }),
 
@@ -113,7 +170,23 @@ eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awai
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {\r\n    \"use strict\";\r\n    Object.defineProperty(exports, \"__esModule\", { value: true });\r\n    class Errors {\r\n        static canntFindAction(pageName) {\r\n            let msg = `Cannt find action in page '${pageName}', is the exports has default field?`;\r\n            return new Error(msg);\r\n        }\r\n        static exportsCanntNull(pageName) {\r\n            let msg = `Exports of page '${pageName}' is null.`;\r\n            return new Error(msg);\r\n        }\r\n    }\r\n    exports.Errors = Errors;\r\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\r\n\n\n//# sourceURL=webpack:///./out/errors.js?");
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    class Errors {
+        static canntFindAction(pageName) {
+            let msg = `Cannt find action in page '${pageName}', is the exports has default field?`;
+            return new Error(msg);
+        }
+        static exportsCanntNull(pageName) {
+            let msg = `Exports of page '${pageName}' is null.`;
+            return new Error(msg);
+        }
+    }
+    exports.Errors = Errors;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
 
 /***/ }),
 
@@ -124,7 +197,17 @@ eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPAC
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./application */ \"./out/application.js\")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, application_1) {\r\n    \"use strict\";\r\n    Object.defineProperty(exports, \"__esModule\", { value: true });\r\n    exports.Application = application_1.Application;\r\n    exports.Page = application_1.Page;\r\n}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),\n\t\t\t\t__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));\r\n// export { dataPage, DataPageContext, DataPageProps, DataPageState } from './data-page'\r\n// import './css/index.css'\r\n// import './css/minirefresh.css'\r\n\n\n//# sourceURL=webpack:///./out/index.js?");
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./application */ "./out/application.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, application_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Application = application_1.Application;
+    exports.Page = application_1.Page;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+// export { dataPage, DataPageContext, DataPageProps, DataPageState } from './data-page'
+// import './css/index.css'
+// import './css/minirefresh.css'
+
 
 /***/ }),
 
@@ -135,7 +218,7 @@ eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPAC
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = __WEBPACK_EXTERNAL_MODULE_maishu_chitu__;\n\n//# sourceURL=webpack:///external_%22maishu-chitu%22?");
+module.exports = __WEBPACK_EXTERNAL_MODULE_maishu_chitu__;
 
 /***/ }),
 
@@ -146,7 +229,7 @@ eval("module.exports = __WEBPACK_EXTERNAL_MODULE_maishu_chitu__;\n\n//# sourceUR
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = __WEBPACK_EXTERNAL_MODULE_react__;\n\n//# sourceURL=webpack:///external_%22react%22?");
+module.exports = __WEBPACK_EXTERNAL_MODULE_react__;
 
 /***/ }),
 
@@ -157,8 +240,9 @@ eval("module.exports = __WEBPACK_EXTERNAL_MODULE_react__;\n\n//# sourceURL=webpa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = __WEBPACK_EXTERNAL_MODULE_react_dom__;\n\n//# sourceURL=webpack:///external_%22react-dom%22?");
+module.exports = __WEBPACK_EXTERNAL_MODULE_react_dom__;
 
 /***/ })
 
 /******/ })});;
+//# sourceMappingURL=index.js.map

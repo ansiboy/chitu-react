@@ -33,9 +33,9 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     throw errors_1.Errors.canntFindAction(page.name);
                 }
                 let action;
-                if (!chitu.PageMaster.isClass(_action)) {
-                    return _action(page, this);
-                }
+                // if (!chitu.PageMaster.isClass(_action)) {
+                //     return _action(page, this)
+                // }
                 action = _action;
                 let app = this;
                 let props = {

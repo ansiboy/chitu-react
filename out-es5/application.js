@@ -131,14 +131,9 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     throw errors_1.Errors.canntFindAction(page.name);
 
                   case 8:
-                    if (chitu.PageMaster.isClass(_action)) {
-                      _context.next = 10;
-                      break;
-                    }
-
-                    return _context.abrupt("return", _action(page, this));
-
-                  case 10:
+                    // if (!chitu.PageMaster.isClass(_action)) {
+                    //     return _action(page, this)
+                    // }
                     action = _action;
                     app = this;
                     props = {
@@ -153,7 +148,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     component = ReactDOM.render(element, page.element);
                     page.component = component;
 
-                  case 16:
+                  case 14:
                   case "end":
                     return _context.stop();
                 }

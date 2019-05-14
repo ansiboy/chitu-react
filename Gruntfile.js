@@ -3,29 +3,17 @@ let node_modules = 'node_modules'
 const webpackES6Config = require('./webpack.config.js');
 let webpackES5Config = Object.assign({}, webpackES6Config)
 webpackES5Config.entry = __dirname + "/out-es5/index.js"//已多次提及的唯一入口文件
+webpackES5Config.output = Object.assign({}, webpackES5Config.output)
 webpackES5Config.output.filename = "index.es5.js"
 
 module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
-    let pkg = grunt.file.readJSON('package.json');
-    let license = `
-/*
- * ${pkg.name} v${pkg.version}
- * https://github.com/ansiboy/chitu-react
- *
- * Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
- * Licensed under the MIT License.
- *
- */`;
 
     grunt.initConfig({
         shell: {
             src: {
                 command: `tsc -p src`
-            },
-            webpack: {
-                command: `webpack`,
             }
         },
         webpack: {
@@ -35,7 +23,14 @@ module.exports = function (grunt) {
         babel: {
             options: {
                 sourceMap: true,
-                presets: ['@babel/preset-env']
+                presets: [
+                    ['@babel/preset-env', {
+                        targets: {
+                            "chrome": "58",
+                            "ie": "11"
+                        }
+                    }]
+                ]
             },
             dist: {
                 files: [{
