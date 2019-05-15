@@ -41,7 +41,14 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        copy: {
+            dist: {
+                files: [
+                    { expand: true, cwd: 'out', src: ['*.d.ts'], dest: "dist" }
+                ]
+            }
+        }
     })
 
-    grunt.registerTask('default', ['shell', 'babel', 'webpack']);
+    grunt.registerTask('default', ['shell', 'babel', 'webpack', 'copy']);
 }
