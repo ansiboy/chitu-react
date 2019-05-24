@@ -12,6 +12,9 @@
             ],
             "maishu-chitu-service": [
                 "../node_modules/maishu-chitu-service/out/index.d.ts",
+            ],
+            "csstype":[
+                "../node_modules/csstype/index.d.ts"
             ]
         },
         "strict": true,
