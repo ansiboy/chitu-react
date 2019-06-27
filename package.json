@@ -19,6 +19,6 @@
   "dependencies": {
     "@types/react": "^16.7.11",
     "@types/react-dom": "^16.0.11",
-    "maishu-chitu": "^2.0.7"
+    "maishu-chitu": "^3.4.6"
   }
 }
