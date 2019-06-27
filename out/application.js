@@ -6,42 +6,49 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "react", "react-dom", "maishu-chitu"], factory);
-    }
-})(function (require, exports) {
+define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"], function (require, exports, React, ReactDOM, chitu, errors_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    const React = require("react");
-    const ReactDOM = require("react-dom");
-    const chitu = require("maishu-chitu");
+    class Page extends chitu.Page {
+        constructor() {
+            super(...arguments);
+            this.component = null;
+        }
+    }
+    exports.Page = Page;
     class Application extends chitu.Application {
+        constructor(args) {
+            super(args);
+            this.pageCreated.add((sender, page) => {
+                page.element.className = "page";
+            });
+        }
         createDefaultAction(url, loadjs) {
             return (page) => __awaiter(this, void 0, void 0, function* () {
                 let actionExports = yield loadjs(url);
                 if (!actionExports)
-                    throw chitu.Errors.exportsCanntNull(url);
+                    throw errors_1.Errors.exportsCanntNull(url);
                 let _action = actionExports['default'];
                 if (_action == null) {
-                    throw chitu.Errors.canntFindAction(page.name);
+                    throw errors_1.Errors.canntFindAction(page.name);
                 }
                 let action;
-                if (chitu.PageMaster.isClass(_action)) {
-                    action = _action;
-                }
-                else {
-                    action = _action;
-                }
+                // if (!chitu.PageMaster.isClass(_action)) {
+                //     return _action(page, this)
+                // }
+                action = _action;
                 let app = this;
-                let props = Object.assign({}, page.data, { app });
+                let props = {
+                    app,
+                    data: page.data,
+                    source: page,
+                    createService(type) {
+                        return page.createService(type);
+                    }
+                };
                 let element = React.createElement(action, props);
-                ReactDOM.render(element, page.element);
-                return element;
+                let component = ReactDOM.render(element, page.element);
+                page.component = component;
             });
         }
     }
