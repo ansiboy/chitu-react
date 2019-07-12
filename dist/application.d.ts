@@ -5,6 +5,12 @@ export interface PageProps {
     data: chitu.Page["data"];
     source: chitu.Page;
     createService: chitu.Page["createService"];
+    events: {
+        showing: chitu.Page["showing"];
+        shown: chitu.Page["shown"];
+        hiding: chitu.Page["hiding"];
+        hidden: chitu.Page["hidden"];
+    };
 }
 export declare class Page extends chitu.Page {
     component: React.Component | null;

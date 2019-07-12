@@ -41,6 +41,12 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                 let props = {
                     app,
                     data: page.data,
+                    events: {
+                        shown: page.shown,
+                        showing: page.showing,
+                        hidden: page.hidden,
+                        hiding: page.hiding,
+                    },
                     source: page,
                     createService(type) {
                         return page.createService(type);

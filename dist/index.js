@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.6.0
+ *  maishu-chitu-react v1.7.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -145,6 +145,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
                 let props = {
                     app,
                     data: page.data,
+                    events: {
+                        shown: page.shown,
+                        showing: page.showing,
+                        hidden: page.hidden,
+                        hiding: page.hiding,
+                    },
                     source: page,
                     createService(type) {
                         return page.createService(type);
