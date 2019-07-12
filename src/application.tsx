@@ -14,7 +14,14 @@ export interface PageProps {
     app: Application,
     data: chitu.Page["data"],
     source: chitu.Page,
-    createService: chitu.Page["createService"]
+    createService: chitu.Page["createService"],
+    events: {
+        showing: chitu.Page["showing"],
+        shown: chitu.Page["shown"],
+        hiding: chitu.Page["hiding"],
+        hidden: chitu.Page["hidden"],
+
+    }
 }
 
 export class Page extends chitu.Page {
@@ -53,6 +60,12 @@ export class Application extends chitu.Application {
             let props: PageProps = {
                 app,
                 data: page.data as { [key: string]: any },
+                events: {
+                    shown: page.shown,
+                    showing: page.showing,
+                    hidden: page.hidden,
+                    hiding: page.hiding,
+                },
                 source: page,
                 createService<T extends IService>(type?: ServiceConstructor<T>) {
                     return page.createService<T>(type)
