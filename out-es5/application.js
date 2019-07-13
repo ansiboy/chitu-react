@@ -101,8 +101,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
           return __awaiter(_this3, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee() {
-            var actionExports, _action, action, app, props, element, component;
-
+            var actionExports, action, app, props, element, component;
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -121,9 +120,9 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     throw errors_1.Errors.exportsCanntNull(url);
 
                   case 5:
-                    _action = actionExports['default'];
+                    action = actionExports['default'];
 
-                    if (!(_action == null)) {
+                    if (!(action == null)) {
                       _context.next = 8;
                       break;
                     }
@@ -131,24 +130,29 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     throw errors_1.Errors.canntFindAction(page.name);
 
                   case 8:
+                    // let action: any;
                     // if (!chitu.PageMaster.isClass(_action)) {
                     //     return _action(page, this)
                     // }
-                    action = _action;
-                    app = this;
-                    props = {
-                      app: app,
-                      data: page.data,
-                      source: page,
-                      createService: function createService(type) {
-                        return page.createService(type);
-                      }
-                    };
-                    element = React.createElement(action, props);
-                    component = ReactDOM.render(element, page.element);
-                    page.component = component;
+                    // action = _action as any
+                    if (isReactComponent(action)) {
+                      app = this;
+                      props = {
+                        app: app,
+                        data: page.data,
+                        source: page,
+                        createService: function createService(type) {
+                          return page.createService(type);
+                        }
+                      };
+                      element = React.createElement(action, props);
+                      component = ReactDOM.render(element, page.element);
+                      page.component = component;
+                    } else {
+                      new action(page);
+                    }
 
-                  case 14:
+                  case 9:
                   case "end":
                     return _context.stop();
                 }
@@ -163,5 +167,17 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
   }(chitu.Application);
 
   exports.Application = Application;
+
+  function isClassComponent(component) {
+    return typeof component === 'function' && !!component.prototype.isReactComponent ? true : false;
+  }
+
+  function isFunctionComponent(component) {
+    return typeof component === 'function' && String(component).includes('return React.createElement') ? true : false;
+  }
+
+  function isReactComponent(component) {
+    return isClassComponent(component) || isFunctionComponent(component) ? true : false;
+  }
 });
 //# sourceMappingURL=application.js.map

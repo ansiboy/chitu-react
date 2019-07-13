@@ -28,29 +28,46 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                 let actionExports = yield loadjs(url);
                 if (!actionExports)
                     throw errors_1.Errors.exportsCanntNull(url);
-                let _action = actionExports['default'];
-                if (_action == null) {
+                let action = actionExports['default'];
+                if (action == null) {
                     throw errors_1.Errors.canntFindAction(page.name);
                 }
-                let action;
+                // let action: any;
                 // if (!chitu.PageMaster.isClass(_action)) {
                 //     return _action(page, this)
                 // }
-                action = _action;
-                let app = this;
-                let props = {
-                    app,
-                    data: page.data,
-                    source: page,
-                    createService(type) {
-                        return page.createService(type);
-                    }
-                };
-                let element = React.createElement(action, props);
-                let component = ReactDOM.render(element, page.element);
-                page.component = component;
+                // action = _action as any
+                if (isReactComponent(action)) {
+                    let app = this;
+                    let props = {
+                        app,
+                        data: page.data,
+                        source: page,
+                        createService(type) {
+                            return page.createService(type);
+                        }
+                    };
+                    let element = React.createElement(action, props);
+                    let component = ReactDOM.render(element, page.element);
+                    page.component = component;
+                }
+                else {
+                    new action(page);
+                }
             });
         }
     }
     exports.Application = Application;
+    function isClassComponent(component) {
+        return (typeof component === 'function' &&
+            !!component.prototype.isReactComponent) ? true : false;
+    }
+    function isFunctionComponent(component) {
+        return (typeof component === 'function' &&
+            String(component).includes('return React.createElement')) ? true : false;
+    }
+    function isReactComponent(component) {
+        return (isClassComponent(component) ||
+            isFunctionComponent(component)) ? true : false;
+    }
 });
