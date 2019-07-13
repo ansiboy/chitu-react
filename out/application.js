@@ -1,14 +1,12 @@
-var __awaiter = (this && this.__awaiter) || function(thisArg, _arguments, P, generator) {
-    return new(P || (P = Promise))(function(resolve, reject) {
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-
-        function step(result) { result.done ? resolve(result.value) : new P(function(resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"], function(require, exports, React, ReactDOM, chitu, errors_1) {
+define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"], function (require, exports, React, ReactDOM, chitu, errors_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class Page extends chitu.Page {
@@ -26,7 +24,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
             });
         }
         createDefaultAction(url, loadjs) {
-            return (page) => __awaiter(this, void 0, void 0, function*() {
+            return (page) => __awaiter(this, void 0, void 0, function* () {
                 let actionExports = yield loadjs(url);
                 if (!actionExports)
                     throw errors_1.Errors.exportsCanntNull(url);
@@ -44,6 +42,12 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     let props = {
                         app,
                         data: page.data,
+                        events: {
+                            shown: page.shown,
+                            showing: page.showing,
+                            hidden: page.hidden,
+                            hiding: page.hiding,
+                        },
                         source: page,
                         createService(type) {
                             return page.createService(type);
@@ -52,24 +56,22 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     let element = React.createElement(action, props);
                     let component = ReactDOM.render(element, page.element);
                     page.component = component;
-                } else {
+                }
+                else {
                     new action(page);
                 }
             });
         }
     }
     exports.Application = Application;
-
     function isClassComponent(component) {
         return (typeof component === 'function' &&
             !!component.prototype.isReactComponent) ? true : false;
     }
-
     function isFunctionComponent(component) {
         return (typeof component === 'function' &&
             String(component).includes('return React.createElement')) ? true : false;
     }
-
     function isReactComponent(component) {
         return (isClassComponent(component) ||
             isFunctionComponent(component)) ? true : false;

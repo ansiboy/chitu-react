@@ -2,10 +2,7 @@
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true;
-        Object.defineProperty(target, descriptor.key, descriptor); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
@@ -17,171 +14,176 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); }
-    subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var __awaiter = void 0 && (void 0).__awaiter || function(thisArg, _arguments, P, generator) {
-    return new(P || (P = Promise))(function(resolve, reject) {
-        function fulfilled(value) {
-            try {
-                step(generator.next(value));
-            } catch (e) {
-                reject(e);
-            }
-        }
+var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
 
-        function rejected(value) {
-            try {
-                step(generator["throw"](value));
-            } catch (e) {
-                reject(e);
-            }
-        }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
 
-        function step(result) {
-            result.done ? resolve(result.value) : new P(function(resolve) {
-                resolve(result.value);
-            }).then(fulfilled, rejected);
-        }
+    function step(result) {
+      result.done ? resolve(result.value) : new P(function (resolve) {
+        resolve(result.value);
+      }).then(fulfilled, rejected);
+    }
 
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
 };
 
-define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"], function(require, exports, React, ReactDOM, chitu, errors_1) {
-    "use strict";
+define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"], function (require, exports, React, ReactDOM, chitu, errors_1) {
+  "use strict";
 
-    Object.defineProperty(exports, "__esModule", {
-        value: true
-    });
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
 
-    var Page =
-        /*#__PURE__*/
-        function(_chitu$Page) {
-            _inherits(Page, _chitu$Page);
+  var Page =
+  /*#__PURE__*/
+  function (_chitu$Page) {
+    _inherits(Page, _chitu$Page);
 
-            function Page() {
-                var _this;
+    function Page() {
+      var _this;
 
-                _classCallCheck(this, Page);
+      _classCallCheck(this, Page);
 
-                _this = _possibleConstructorReturn(this, _getPrototypeOf(Page).apply(this, arguments));
-                _this.component = null;
-                return _this;
-            }
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(Page).apply(this, arguments));
+      _this.component = null;
+      return _this;
+    }
 
-            return Page;
-        }(chitu.Page);
+    return Page;
+  }(chitu.Page);
 
-    exports.Page = Page;
+  exports.Page = Page;
 
-    var Application =
-        /*#__PURE__*/
-        function(_chitu$Application) {
-            _inherits(Application, _chitu$Application);
+  var Application =
+  /*#__PURE__*/
+  function (_chitu$Application) {
+    _inherits(Application, _chitu$Application);
 
-            function Application(args) {
-                var _this2;
+    function Application(args) {
+      var _this2;
 
-                _classCallCheck(this, Application);
+      _classCallCheck(this, Application);
 
-                _this2 = _possibleConstructorReturn(this, _getPrototypeOf(Application).call(this, args));
+      _this2 = _possibleConstructorReturn(this, _getPrototypeOf(Application).call(this, args));
 
-                _this2.pageCreated.add(function(sender, page) {
-                    page.element.className = "page";
-                });
+      _this2.pageCreated.add(function (sender, page) {
+        page.element.className = "page";
+      });
 
-                return _this2;
-            }
+      return _this2;
+    }
 
-            _createClass(Application, [{
-                key: "createDefaultAction",
-                value: function createDefaultAction(url, loadjs) {
-                    var _this3 = this;
+    _createClass(Application, [{
+      key: "createDefaultAction",
+      value: function createDefaultAction(url, loadjs) {
+        var _this3 = this;
 
-                    return function(page) {
-                        return __awaiter(_this3, void 0, void 0,
-                            /*#__PURE__*/
-                            regeneratorRuntime.mark(function _callee() {
-                                var actionExports, action, app, props, element, component;
-                                return regeneratorRuntime.wrap(function _callee$(_context) {
-                                    while (1) {
-                                        switch (_context.prev = _context.next) {
-                                            case 0:
-                                                _context.next = 2;
-                                                return loadjs(url);
+        return function (page) {
+          return __awaiter(_this3, void 0, void 0,
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee() {
+            var actionExports, action, app, props, element, component;
+            return regeneratorRuntime.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return loadjs(url);
 
-                                            case 2:
-                                                actionExports = _context.sent;
+                  case 2:
+                    actionExports = _context.sent;
 
-                                                if (actionExports) {
-                                                    _context.next = 5;
-                                                    break;
-                                                }
+                    if (actionExports) {
+                      _context.next = 5;
+                      break;
+                    }
 
-                                                throw errors_1.Errors.exportsCanntNull(url);
+                    throw errors_1.Errors.exportsCanntNull(url);
 
-                                            case 5:
-                                                action = actionExports['default'];
+                  case 5:
+                    action = actionExports['default'];
 
-                                                if (!(action == null)) {
-                                                    _context.next = 8;
-                                                    break;
-                                                }
+                    if (!(action == null)) {
+                      _context.next = 8;
+                      break;
+                    }
 
-                                                throw errors_1.Errors.canntFindAction(page.name);
+                    throw errors_1.Errors.canntFindAction(page.name);
 
-                                            case 8:
-                                                // let action: any;
-                                                // if (!chitu.PageMaster.isClass(_action)) {
-                                                //     return _action(page, this)
-                                                // }
-                                                // action = _action as any
-                                                if (isReactComponent(action)) {
-                                                    app = this;
-                                                    props = {
-                                                        app: app,
-                                                        data: page.data,
-                                                        source: page,
-                                                        createService: function createService(type) {
-                                                            return page.createService(type);
-                                                        }
-                                                    };
-                                                    element = React.createElement(action, props);
-                                                    component = ReactDOM.render(element, page.element);
-                                                    page.component = component;
-                                                } else {
-                                                    new action(page);
-                                                }
+                  case 8:
+                    // let action: any;
+                    // if (!chitu.PageMaster.isClass(_action)) {
+                    //     return _action(page, this)
+                    // }
+                    // action = _action as any
+                    if (isReactComponent(action)) {
+                      app = this;
+                      props = {
+                        app: app,
+                        data: page.data,
+                        events: {
+                          shown: page.shown,
+                          showing: page.showing,
+                          hidden: page.hidden,
+                          hiding: page.hiding
+                        },
+                        source: page,
+                        createService: function createService(type) {
+                          return page.createService(type);
+                        }
+                      };
+                      element = React.createElement(action, props);
+                      component = ReactDOM.render(element, page.element);
+                      page.component = component;
+                    } else {
+                      new action(page);
+                    }
 
-                                            case 9:
-                                            case "end":
-                                                return _context.stop();
-                                        }
-                                    }
-                                }, _callee, this);
-                            }));
-                    };
+                  case 9:
+                  case "end":
+                    return _context.stop();
                 }
-            }]);
+              }
+            }, _callee, this);
+          }));
+        };
+      }
+    }]);
 
-            return Application;
-        }(chitu.Application);
+    return Application;
+  }(chitu.Application);
 
-    exports.Application = Application;
+  exports.Application = Application;
 
-    function isClassComponent(component) {
-        return typeof component === 'function' && !!component.prototype.isReactComponent ? true : false;
-    }
+  function isClassComponent(component) {
+    return typeof component === 'function' && !!component.prototype.isReactComponent ? true : false;
+  }
 
-    function isFunctionComponent(component) {
-        return typeof component === 'function' && String(component).includes('return React.createElement') ? true : false;
-    }
+  function isFunctionComponent(component) {
+    return typeof component === 'function' && String(component).includes('return React.createElement') ? true : false;
+  }
 
-    function isReactComponent(component) {
-        return isClassComponent(component) || isFunctionComponent(component) ? true : false;
-    }
+  function isReactComponent(component) {
+    return isClassComponent(component) || isFunctionComponent(component) ? true : false;
+  }
 });
 //# sourceMappingURL=application.js.map
