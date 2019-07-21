@@ -1,4 +1,3 @@
-let node_modules = 'node_modules'
 
 const webpackES6Config = require('./webpack.config.js');
 let webpackES5Config = Object.assign({}, webpackES6Config)

@@ -24,7 +24,7 @@ export class Page extends chitu.Page {
 export class Application extends chitu.Application {
     constructor(args?: {
         parser?: chitu.PageNodeParser;
-        container?: HTMLElement;
+        container?: HTMLElement | { [name: string]: HTMLElement };
     }) {
         super(args)
 
