@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.6.0
+ *  maishu-chitu-react v1.9.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -132,31 +132,54 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
                 let actionExports = yield loadjs(url);
                 if (!actionExports)
                     throw errors_1.Errors.exportsCanntNull(url);
-                let _action = actionExports['default'];
-                if (_action == null) {
+                let action = actionExports['default'];
+                if (action == null) {
                     throw errors_1.Errors.canntFindAction(page.name);
                 }
-                let action;
+                // let action: any;
                 // if (!chitu.PageMaster.isClass(_action)) {
                 //     return _action(page, this)
                 // }
-                action = _action;
-                let app = this;
-                let props = {
-                    app,
-                    data: page.data,
-                    source: page,
-                    createService(type) {
-                        return page.createService(type);
-                    }
-                };
-                let element = React.createElement(action, props);
-                let component = ReactDOM.render(element, page.element);
-                page.component = component;
+                // action = _action as any
+                if (isReactComponent(action)) {
+                    let app = this;
+                    let props = {
+                        app,
+                        data: page.data,
+                        events: {
+                            shown: page.shown,
+                            showing: page.showing,
+                            hidden: page.hidden,
+                            hiding: page.hiding,
+                        },
+                        source: page,
+                        createService(type) {
+                            return page.createService(type);
+                        }
+                    };
+                    let element = React.createElement(action, props);
+                    let component = ReactDOM.render(element, page.element);
+                    page.component = component;
+                }
+                else {
+                    new action(page);
+                }
             });
         }
     }
     exports.Application = Application;
+    function isClassComponent(component) {
+        return (typeof component === 'function' &&
+            !!component.prototype.isReactComponent) ? true : false;
+    }
+    function isFunctionComponent(component) {
+        return (typeof component === 'function' &&
+            String(component).includes('return React.createElement')) ? true : false;
+    }
+    function isReactComponent(component) {
+        return (isClassComponent(component) ||
+            isFunctionComponent(component)) ? true : false;
+    }
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
