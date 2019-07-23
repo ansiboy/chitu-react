@@ -1,6 +1,6 @@
 {
     "name": "maishu-chitu-react",
-    "version": "1.9.0",
+    "version": "1.10.0",
     "description": "",
     "main": "dist/index.js",
     "scripts": {
@@ -18,7 +18,7 @@
     },
     "homepage": "https://github.com/ansiboy/chitu-react#readme",
     "dependencies": {
-        "maishu-chitu": "^3.4.6",
+        "maishu-chitu": "^3.6.4",
         "maishu-chitu-service": "^1.1.16",
         "react": "^16.8.2",
         "react-dom": "^16.8.2"
