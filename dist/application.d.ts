@@ -16,11 +16,15 @@ export declare class Page extends chitu.Page {
     component: React.Component | null;
 }
 export declare class Application extends chitu.Application {
+    private __defaultPageNodeParser;
     constructor(args?: {
         parser?: chitu.PageNodeParser;
+        /** 页面容器 */
         container?: HTMLElement | {
             [name: string]: HTMLElement;
         };
+        /** 模块路径 */
+        modulesPath?: string;
     });
-    protected createDefaultAction(url: string, loadjs: (path: string) => Promise<any>): chitu.Action;
+    readonly defaultPageNodeParser: chitu.PageNodeParser;
 }

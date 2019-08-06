@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.10.0
+ *  maishu-chitu-react v1.11.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -120,12 +120,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
         }
     }
     exports.Page = Page;
-    class Application extends chitu.Application {
-        constructor(args) {
-            super(args);
-            this.pageCreated.add((sender, page) => {
-                page.element.className = "page";
-            });
+    class DefaultPageNodeParser {
+        constructor(app, modulesPath) {
+            this.nodes = {};
+            this.app = app;
+            this.modulesPath = modulesPath.endsWith("/") ? modulesPath.substr(0, modulesPath.length - 1) : modulesPath;
+        }
+        parse(pageName) {
+            let node = this.nodes[pageName];
+            if (node == null) {
+                let path = `${pageName}`.split('_').join('/');
+                if (this.modulesPath) {
+                    path = `${this.modulesPath}/${path}`;
+                }
+                node = { action: this.createDefaultAction(path, this.loadjs), name: pageName };
+                this.nodes[pageName] = node;
+            }
+            return node;
         }
         createDefaultAction(url, loadjs) {
             return (page) => __awaiter(this, void 0, void 0, function* () {
@@ -136,13 +147,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
                 if (action == null) {
                     throw errors_1.Errors.canntFindAction(page.name);
                 }
-                // let action: any;
-                // if (!chitu.PageMaster.isClass(_action)) {
-                //     return _action(page, this)
-                // }
-                // action = _action as any
                 if (isReactComponent(action)) {
-                    let app = this;
+                    let app = this.app;
                     let props = {
                         app,
                         data: page.data,
@@ -165,6 +171,31 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
                     new action(page);
                 }
             });
+        }
+        loadjs(path) {
+            return new Promise((reslove, reject) => {
+                requirejs([path], function (result) {
+                    reslove(result);
+                }, function (err) {
+                    reject(err);
+                });
+            });
+        }
+    }
+    class Application extends chitu.Application {
+        constructor(args) {
+            args = args || {};
+            if (args.modulesPath === undefined) {
+                args.modulesPath = "modules";
+            }
+            super(args);
+            this.pageCreated.add((sender, page) => {
+                page.element.className = "page";
+            });
+            this.__defaultPageNodeParser = new DefaultPageNodeParser(this, args.modulesPath);
+        }
+        get defaultPageNodeParser() {
+            return this.__defaultPageNodeParser;
         }
     }
     exports.Application = Application;

@@ -73,32 +73,45 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
 
   exports.Page = Page;
 
-  var Application =
+  var DefaultPageNodeParser =
   /*#__PURE__*/
-  function (_chitu$Application) {
-    _inherits(Application, _chitu$Application);
+  function () {
+    function DefaultPageNodeParser(app, modulesPath) {
+      _classCallCheck(this, DefaultPageNodeParser);
 
-    function Application(args) {
-      var _this2;
-
-      _classCallCheck(this, Application);
-
-      _this2 = _possibleConstructorReturn(this, _getPrototypeOf(Application).call(this, args));
-
-      _this2.pageCreated.add(function (sender, page) {
-        page.element.className = "page";
-      });
-
-      return _this2;
+      this.nodes = {};
+      this.app = app;
+      this.modulesPath = modulesPath.endsWith("/") ? modulesPath.substr(0, modulesPath.length - 1) : modulesPath;
     }
 
-    _createClass(Application, [{
+    _createClass(DefaultPageNodeParser, [{
+      key: "parse",
+      value: function parse(pageName) {
+        var node = this.nodes[pageName];
+
+        if (node == null) {
+          var path = "".concat(pageName).split('_').join('/');
+
+          if (this.modulesPath) {
+            path = "".concat(this.modulesPath, "/").concat(path);
+          }
+
+          node = {
+            action: this.createDefaultAction(path, this.loadjs),
+            name: pageName
+          };
+          this.nodes[pageName] = node;
+        }
+
+        return node;
+      }
+    }, {
       key: "createDefaultAction",
       value: function createDefaultAction(url, loadjs) {
-        var _this3 = this;
+        var _this2 = this;
 
         return function (page) {
-          return __awaiter(_this3, void 0, void 0,
+          return __awaiter(_this2, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee() {
             var actionExports, action, app, props, element, component;
@@ -130,13 +143,8 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     throw errors_1.Errors.canntFindAction(page.name);
 
                   case 8:
-                    // let action: any;
-                    // if (!chitu.PageMaster.isClass(_action)) {
-                    //     return _action(page, this)
-                    // }
-                    // action = _action as any
                     if (isReactComponent(action)) {
-                      app = this;
+                      app = this.app;
                       props = {
                         app: app,
                         data: page.data,
@@ -166,6 +174,53 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
             }, _callee, this);
           }));
         };
+      }
+    }, {
+      key: "loadjs",
+      value: function loadjs(path) {
+        return new Promise(function (reslove, reject) {
+          requirejs([path], function (result) {
+            reslove(result);
+          }, function (err) {
+            reject(err);
+          });
+        });
+      }
+    }]);
+
+    return DefaultPageNodeParser;
+  }();
+
+  var Application =
+  /*#__PURE__*/
+  function (_chitu$Application) {
+    _inherits(Application, _chitu$Application);
+
+    function Application(args) {
+      var _this3;
+
+      _classCallCheck(this, Application);
+
+      args = args || {};
+
+      if (args.modulesPath === undefined) {
+        args.modulesPath = "modules";
+      }
+
+      _this3 = _possibleConstructorReturn(this, _getPrototypeOf(Application).call(this, args));
+
+      _this3.pageCreated.add(function (sender, page) {
+        page.element.className = "page";
+      });
+
+      _this3.__defaultPageNodeParser = new DefaultPageNodeParser(_assertThisInitialized(_this3), args.modulesPath);
+      return _this3;
+    }
+
+    _createClass(Application, [{
+      key: "defaultPageNodeParser",
+      get: function get() {
+        return this.__defaultPageNodeParser;
       }
     }]);
 
