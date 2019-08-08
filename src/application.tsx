@@ -26,12 +26,16 @@ export class Page extends chitu.Page {
 
 class DefaultPageNodeParser implements PageNodeParser {
     private nodes: { [key: string]: PageNode } = {}
-    private app: Application;
     private modulesPath: string;
-    constructor(app: Application, modulesPath: string) {
-        this.app = app;
+
+    app: Application;
+    loadjs: (path: string) => Promise<any>;
+
+    constructor(modulesPath: string) {
         this.modulesPath = modulesPath.endsWith("/") ? modulesPath.substr(0, modulesPath.length - 1) : modulesPath;
     }
+
+
     parse(pageName: string) {
         let node = this.nodes[pageName];
         if (node == null) {
@@ -39,7 +43,7 @@ class DefaultPageNodeParser implements PageNodeParser {
             if (this.modulesPath) {
                 path = `${this.modulesPath}/${path}`;
             }
-            node = { action: this.createDefaultAction(path, this.loadjs), name: pageName };
+            node = { action: this.createDefaultAction(path, (path) => this.loadjs(path)), name: pageName };
             this.nodes[pageName] = node;
         }
         return node;
@@ -57,6 +61,7 @@ class DefaultPageNodeParser implements PageNodeParser {
             }
 
             if (isReactComponent(action)) {
+                console.assert(this.app != null);
                 let app = this.app;
                 let props: PageProps = {
                     app,
@@ -82,23 +87,9 @@ class DefaultPageNodeParser implements PageNodeParser {
             }
         }
     }
-
-    private loadjs(path: string) {
-        return new Promise<Array<any>>((reslove, reject) => {
-            requirejs([path],
-                function (result: any) {
-                    reslove(result);
-                },
-                function (err: Error) {
-                    reject(err);
-                });
-        });
-    }
 }
 
 export class Application extends chitu.Application {
-
-    private __defaultPageNodeParser: PageNodeParser;
 
     constructor(args?: {
         parser?: chitu.PageNodeParser;
@@ -113,19 +104,24 @@ export class Application extends chitu.Application {
             args.modulesPath = "modules";
         }
 
-        super(args)
+        if (!args.parser)
+            args.parser = Application.createPageNodeParser(args.modulesPath);
+
+        super(args);
+
+        (args.parser as DefaultPageNodeParser).app = this;
+        (args.parser as DefaultPageNodeParser).loadjs = (path) => this.loadjs(path);
 
         this.pageCreated.add((sender, page) => {
             page.element.className = "page"
         })
 
-        this.__defaultPageNodeParser = new DefaultPageNodeParser(this, args.modulesPath);
     }
 
-    get defaultPageNodeParser() {
-        return this.__defaultPageNodeParser;
+    static createPageNodeParser(modulesPath: string) {
+        let p = new DefaultPageNodeParser(modulesPath);
+        return p;
     }
-
 }
 
 function isClassComponent(component: any) {

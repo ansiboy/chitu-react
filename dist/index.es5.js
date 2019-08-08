@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.11.0
+ *  maishu-chitu-react v1.16.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -181,17 +181,18 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
   var DefaultPageNodeParser =
   /*#__PURE__*/
   function () {
-    function DefaultPageNodeParser(app, modulesPath) {
+    function DefaultPageNodeParser(modulesPath) {
       _classCallCheck(this, DefaultPageNodeParser);
 
       this.nodes = {};
-      this.app = app;
       this.modulesPath = modulesPath.endsWith("/") ? modulesPath.substr(0, modulesPath.length - 1) : modulesPath;
     }
 
     _createClass(DefaultPageNodeParser, [{
       key: "parse",
       value: function parse(pageName) {
+        var _this2 = this;
+
         var node = this.nodes[pageName];
 
         if (node == null) {
@@ -202,7 +203,9 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
           }
 
           node = {
-            action: this.createDefaultAction(path, this.loadjs),
+            action: this.createDefaultAction(path, function (path) {
+              return _this2.loadjs(path);
+            }),
             name: pageName
           };
           this.nodes[pageName] = node;
@@ -213,10 +216,10 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
     }, {
       key: "createDefaultAction",
       value: function createDefaultAction(url, loadjs) {
-        var _this2 = this;
+        var _this3 = this;
 
         return function (page) {
-          return __awaiter(_this2, void 0, void 0,
+          return __awaiter(_this3, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee() {
             var actionExports, action, app, props, element, component;
@@ -249,6 +252,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
 
                   case 8:
                     if (isReactComponent(action)) {
+                      console.assert(this.app != null);
                       app = this.app;
                       props = {
                         app: app,
@@ -280,17 +284,6 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
           }));
         };
       }
-    }, {
-      key: "loadjs",
-      value: function loadjs(path) {
-        return new Promise(function (reslove, reject) {
-          requirejs([path], function (result) {
-            reslove(result);
-          }, function (err) {
-            reject(err);
-          });
-        });
-      }
     }]);
 
     return DefaultPageNodeParser;
@@ -302,7 +295,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
     _inherits(Application, _chitu$Application);
 
     function Application(args) {
-      var _this3;
+      var _this4;
 
       _classCallCheck(this, Application);
 
@@ -312,20 +305,26 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
         args.modulesPath = "modules";
       }
 
-      _this3 = _possibleConstructorReturn(this, _getPrototypeOf(Application).call(this, args));
+      if (!args.parser) args.parser = Application.createPageNodeParser(args.modulesPath);
+      _this4 = _possibleConstructorReturn(this, _getPrototypeOf(Application).call(this, args));
+      args.parser.app = _assertThisInitialized(_this4);
 
-      _this3.pageCreated.add(function (sender, page) {
+      args.parser.loadjs = function (path) {
+        return _this4.loadjs(path);
+      };
+
+      _this4.pageCreated.add(function (sender, page) {
         page.element.className = "page";
       });
 
-      _this3.__defaultPageNodeParser = new DefaultPageNodeParser(_assertThisInitialized(_this3), args.modulesPath);
-      return _this3;
+      return _this4;
     }
 
-    _createClass(Application, [{
-      key: "defaultPageNodeParser",
-      get: function get() {
-        return this.__defaultPageNodeParser;
+    _createClass(Application, null, [{
+      key: "createPageNodeParser",
+      value: function createPageNodeParser(modulesPath) {
+        var p = new DefaultPageNodeParser(modulesPath);
+        return p;
       }
     }]);
 

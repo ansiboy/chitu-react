@@ -17,9 +17,8 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
     }
     exports.Page = Page;
     class DefaultPageNodeParser {
-        constructor(app, modulesPath) {
+        constructor(modulesPath) {
             this.nodes = {};
-            this.app = app;
             this.modulesPath = modulesPath.endsWith("/") ? modulesPath.substr(0, modulesPath.length - 1) : modulesPath;
         }
         parse(pageName) {
@@ -29,7 +28,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                 if (this.modulesPath) {
                     path = `${this.modulesPath}/${path}`;
                 }
-                node = { action: this.createDefaultAction(path, this.loadjs), name: pageName };
+                node = { action: this.createDefaultAction(path, (path) => this.loadjs(path)), name: pageName };
                 this.nodes[pageName] = node;
             }
             return node;
@@ -44,6 +43,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     throw errors_1.Errors.canntFindAction(page.name);
                 }
                 if (isReactComponent(action)) {
+                    console.assert(this.app != null);
                     let app = this.app;
                     let props = {
                         app,
@@ -68,15 +68,6 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                 }
             });
         }
-        loadjs(path) {
-            return new Promise((reslove, reject) => {
-                requirejs([path], function (result) {
-                    reslove(result);
-                }, function (err) {
-                    reject(err);
-                });
-            });
-        }
     }
     class Application extends chitu.Application {
         constructor(args) {
@@ -84,14 +75,18 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
             if (args.modulesPath === undefined) {
                 args.modulesPath = "modules";
             }
+            if (!args.parser)
+                args.parser = Application.createPageNodeParser(args.modulesPath);
             super(args);
+            args.parser.app = this;
+            args.parser.loadjs = (path) => this.loadjs(path);
             this.pageCreated.add((sender, page) => {
                 page.element.className = "page";
             });
-            this.__defaultPageNodeParser = new DefaultPageNodeParser(this, args.modulesPath);
         }
-        get defaultPageNodeParser() {
-            return this.__defaultPageNodeParser;
+        static createPageNodeParser(modulesPath) {
+            let p = new DefaultPageNodeParser(modulesPath);
+            return p;
         }
     }
     exports.Application = Application;
