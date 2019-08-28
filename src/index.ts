@@ -1,4 +1,4 @@
-export { Application, Page, PageProps } from './application'
+export { Application, Page, PageProps, PageContext } from './application'
 // export { dataPage, DataPageContext, DataPageProps, DataPageState } from './data-page'
 // import './css/index.css'
 // import './css/minirefresh.css'

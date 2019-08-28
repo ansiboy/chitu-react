@@ -21,8 +21,11 @@ export interface PageProps {
 }
 
 export class Page extends chitu.Page {
-    component: React.Component | null = null
+    component: React.Component | null = null;
+    app: Application
 }
+
+export let PageContext = React.createContext<{ page: Page | null }>({ page: null })
 
 class DefaultPageNodeParser implements PageNodeParser {
     private nodes: { [key: string]: PageNode } = {}
@@ -50,7 +53,7 @@ class DefaultPageNodeParser implements PageNodeParser {
     }
 
     private createDefaultAction(url: string, loadjs: (path: string) => Promise<any>): chitu.Action {
-        return async (page: chitu.Page) => {
+        return async (page, app) => {
             let actionExports = await (loadjs as LoadJS)(url);
             if (!actionExports)
                 throw Errors.exportsCanntNull(url);
@@ -78,7 +81,10 @@ class DefaultPageNodeParser implements PageNodeParser {
                     }
                 }
 
-                let element = React.createElement(action, props)
+                let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
+                    React.createElement(action, props)
+                )
+
                 let component = ReactDOM.render(element, page.element) as any as React.Component
                 (page as Page).component = component
             }
@@ -112,10 +118,11 @@ export class Application extends chitu.Application {
         (args.parser as DefaultPageNodeParser).app = this;
         (args.parser as DefaultPageNodeParser).loadjs = (path) => this.loadjs(path);
 
-        this.pageCreated.add((sender, page) => {
-            page.element.className = "page"
-        })
+        // this.pageCreated.add((sender, page) => {
+        //     page.element.className = "page"
+        // })
 
+        this.pageType = Page;
     }
 
     static createPageNodeParser(modulesPath: string) {
