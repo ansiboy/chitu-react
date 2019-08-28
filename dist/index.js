@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.16.0
+ *  maishu-chitu-react v1.18.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -120,6 +120,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
         }
     }
     exports.Page = Page;
+    exports.PageContext = React.createContext({ page: null });
     class DefaultPageNodeParser {
         constructor(modulesPath) {
             this.nodes = {};
@@ -138,7 +139,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
             return node;
         }
         createDefaultAction(url, loadjs) {
-            return (page) => __awaiter(this, void 0, void 0, function* () {
+            return (page, app) => __awaiter(this, void 0, void 0, function* () {
                 let actionExports = yield loadjs(url);
                 if (!actionExports)
                     throw errors_1.Errors.exportsCanntNull(url);
@@ -163,7 +164,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
                             return page.createService(type);
                         }
                     };
-                    let element = React.createElement(action, props);
+                    let element = React.createElement(exports.PageContext.Provider, { value: { page: page } }, React.createElement(action, props));
                     let component = ReactDOM.render(element, page.element);
                     page.component = component;
                 }
@@ -184,9 +185,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
             super(args);
             args.parser.app = this;
             args.parser.loadjs = (path) => this.loadjs(path);
-            this.pageCreated.add((sender, page) => {
-                page.element.className = "page";
-            });
+            // this.pageCreated.add((sender, page) => {
+            //     page.element.className = "page"
+            // })
+            this.pageType = Page;
         }
         static createPageNodeParser(modulesPath) {
             let p = new DefaultPageNodeParser(modulesPath);
@@ -251,6 +253,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Application = application_1.Application;
     exports.Page = application_1.Page;
+    exports.PageContext = application_1.PageContext;
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 // export { dataPage, DataPageContext, DataPageProps, DataPageState } from './data-page'

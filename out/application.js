@@ -16,6 +16,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
         }
     }
     exports.Page = Page;
+    exports.PageContext = React.createContext({ page: null });
     class DefaultPageNodeParser {
         constructor(modulesPath) {
             this.nodes = {};
@@ -34,7 +35,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
             return node;
         }
         createDefaultAction(url, loadjs) {
-            return (page) => __awaiter(this, void 0, void 0, function* () {
+            return (page, app) => __awaiter(this, void 0, void 0, function* () {
                 let actionExports = yield loadjs(url);
                 if (!actionExports)
                     throw errors_1.Errors.exportsCanntNull(url);
@@ -59,7 +60,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                             return page.createService(type);
                         }
                     };
-                    let element = React.createElement(action, props);
+                    let element = React.createElement(exports.PageContext.Provider, { value: { page: page } }, React.createElement(action, props));
                     let component = ReactDOM.render(element, page.element);
                     page.component = component;
                 }
@@ -80,9 +81,10 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
             super(args);
             args.parser.app = this;
             args.parser.loadjs = (path) => this.loadjs(path);
-            this.pageCreated.add((sender, page) => {
-                page.element.className = "page";
-            });
+            // this.pageCreated.add((sender, page) => {
+            //     page.element.className = "page"
+            // })
+            this.pageType = Page;
         }
         static createPageNodeParser(modulesPath) {
             let p = new DefaultPageNodeParser(modulesPath);

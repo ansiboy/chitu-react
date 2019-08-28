@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.16.0
+ *  maishu-chitu-react v1.18.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -177,6 +177,9 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
   }(chitu.Page);
 
   exports.Page = Page;
+  exports.PageContext = React.createContext({
+    page: null
+  });
 
   var DefaultPageNodeParser =
   /*#__PURE__*/
@@ -218,11 +221,12 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
       value: function createDefaultAction(url, loadjs) {
         var _this3 = this;
 
-        return function (page) {
+        return function (page, app) {
           return __awaiter(_this3, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee() {
-            var actionExports, action, app, props, element, component;
+            var actionExports, action, _app, props, element, component;
+
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -253,9 +257,9 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
                   case 8:
                     if (isReactComponent(action)) {
                       console.assert(this.app != null);
-                      app = this.app;
+                      _app = this.app;
                       props = {
-                        app: app,
+                        app: _app,
                         data: page.data,
                         events: {
                           shown: page.shown,
@@ -268,7 +272,11 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
                           return page.createService(type);
                         }
                       };
-                      element = React.createElement(action, props);
+                      element = React.createElement(exports.PageContext.Provider, {
+                        value: {
+                          page: page
+                        }
+                      }, React.createElement(action, props));
                       component = ReactDOM.render(element, page.element);
                       page.component = component;
                     } else {
@@ -311,12 +319,12 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
 
       args.parser.loadjs = function (path) {
         return _this4.loadjs(path);
-      };
+      }; // this.pageCreated.add((sender, page) => {
+      //     page.element.className = "page"
+      // })
 
-      _this4.pageCreated.add(function (sender, page) {
-        page.element.className = "page";
-      });
 
+      _this4.pageType = Page;
       return _this4;
     }
 
@@ -424,6 +432,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
   });
   exports.Application = application_1.Application;
   exports.Page = application_1.Page;
+  exports.PageContext = application_1.PageContext;
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)); // export { dataPage, DataPageContext, DataPageProps, DataPageState } from './data-page'
 // import './css/index.css'

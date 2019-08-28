@@ -72,6 +72,9 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
   }(chitu.Page);
 
   exports.Page = Page;
+  exports.PageContext = React.createContext({
+    page: null
+  });
 
   var DefaultPageNodeParser =
   /*#__PURE__*/
@@ -113,11 +116,12 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
       value: function createDefaultAction(url, loadjs) {
         var _this3 = this;
 
-        return function (page) {
+        return function (page, app) {
           return __awaiter(_this3, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee() {
-            var actionExports, action, app, props, element, component;
+            var actionExports, action, _app, props, element, component;
+
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -148,9 +152,9 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                   case 8:
                     if (isReactComponent(action)) {
                       console.assert(this.app != null);
-                      app = this.app;
+                      _app = this.app;
                       props = {
-                        app: app,
+                        app: _app,
                         data: page.data,
                         events: {
                           shown: page.shown,
@@ -163,7 +167,11 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                           return page.createService(type);
                         }
                       };
-                      element = React.createElement(action, props);
+                      element = React.createElement(exports.PageContext.Provider, {
+                        value: {
+                          page: page
+                        }
+                      }, React.createElement(action, props));
                       component = ReactDOM.render(element, page.element);
                       page.component = component;
                     } else {
@@ -206,12 +214,12 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
 
       args.parser.loadjs = function (path) {
         return _this4.loadjs(path);
-      };
+      }; // this.pageCreated.add((sender, page) => {
+      //     page.element.className = "page"
+      // })
 
-      _this4.pageCreated.add(function (sender, page) {
-        page.element.className = "page";
-      });
 
+      _this4.pageType = Page;
       return _this4;
     }
 
