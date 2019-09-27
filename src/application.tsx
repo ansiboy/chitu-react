@@ -63,7 +63,7 @@ class DefaultPageNodeParser implements PageNodeParser {
                 throw Errors.canntFindAction(page.name);
             }
 
-            if (isReactComponent(action)) {
+            if (isClassComponent(action)) {
                 console.assert(this.app != null);
                 let app = this.app;
                 let props: PageProps = {
@@ -138,19 +138,19 @@ function isClassComponent(component: any) {
     ) ? true : false
 }
 
-function isFunctionComponent(component: any) {
-    return (
-        typeof component === 'function' &&
-        String(component).includes('return React.createElement')
-    ) ? true : false;
-}
+// function isFunctionComponent(component: any) {
+//     return (
+//         typeof component === 'function' &&
+//         String(component).includes('return React.createElement')
+//     ) ? true : false;
+// }
 
-function isReactComponent(component: any) {
-    return (
-        isClassComponent(component) ||
-        isFunctionComponent(component)
-    ) ? true : false;
-}
+// function isReactComponent(component: any) {
+//     return (
+//         isClassComponent(component) ||
+//         isFunctionComponent(component)
+//     ) ? true : false;
+// }
 
 
 

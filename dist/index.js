@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.19.0
+ *  maishu-chitu-react v1.20.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -158,7 +158,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
                 if (action == null) {
                     throw errors_1.Errors.canntFindAction(page.name);
                 }
-                if (isReactComponent(action)) {
+                if (isClassComponent(action)) {
                     console.assert(this.app != null);
                     let app = this.app;
                     let props = {
@@ -211,16 +211,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
         return (typeof component === 'function' &&
             !!component.prototype.isReactComponent) ? true : false;
     }
-    function isFunctionComponent(component) {
-        return (typeof component === 'function' &&
-            String(component).includes('return React.createElement')) ? true : false;
-    }
-    function isReactComponent(component) {
-        return (isClassComponent(component) ||
-            isFunctionComponent(component)) ? true : false;
-    }
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+// function isFunctionComponent(component: any) {
+//     return (
+//         typeof component === 'function' &&
+//         String(component).includes('return React.createElement')
+//     ) ? true : false;
+// }
+// function isReactComponent(component: any) {
+//     return (
+//         isClassComponent(component) ||
+//         isFunctionComponent(component)
+//     ) ? true : false;
+// }
 
 
 /***/ }),

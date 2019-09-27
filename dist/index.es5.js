@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.19.0
+ *  maishu-chitu-react v1.20.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -269,7 +269,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
                     throw errors_1.Errors.canntFindAction(page.name);
 
                   case 8:
-                    if (isReactComponent(action)) {
+                    if (isClassComponent(action)) {
                       console.assert(this.app != null);
                       _app = this.app;
                       props = {
@@ -358,16 +358,19 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
   function isClassComponent(component) {
     return typeof component === 'function' && !!component.prototype.isReactComponent ? true : false;
   }
-
-  function isFunctionComponent(component) {
-    return typeof component === 'function' && String(component).includes('return React.createElement') ? true : false;
-  }
-
-  function isReactComponent(component) {
-    return isClassComponent(component) || isFunctionComponent(component) ? true : false;
-  }
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)); // function isFunctionComponent(component: any) {
+//     return (
+//         typeof component === 'function' &&
+//         String(component).includes('return React.createElement')
+//     ) ? true : false;
+// }
+// function isReactComponent(component: any) {
+//     return (
+//         isClassComponent(component) ||
+//         isFunctionComponent(component)
+//     ) ? true : false;
+// }
 //# sourceMappingURL=application.js.map
 
 

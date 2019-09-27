@@ -154,7 +154,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     throw errors_1.Errors.canntFindAction(page.name);
 
                   case 8:
-                    if (isReactComponent(action)) {
+                    if (isClassComponent(action)) {
                       console.assert(this.app != null);
                       _app = this.app;
                       props = {
@@ -243,13 +243,16 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
   function isClassComponent(component) {
     return typeof component === 'function' && !!component.prototype.isReactComponent ? true : false;
   }
-
-  function isFunctionComponent(component) {
-    return typeof component === 'function' && String(component).includes('return React.createElement') ? true : false;
-  }
-
-  function isReactComponent(component) {
-    return isClassComponent(component) || isFunctionComponent(component) ? true : false;
-  }
-});
+}); // function isFunctionComponent(component: any) {
+//     return (
+//         typeof component === 'function' &&
+//         String(component).includes('return React.createElement')
+//     ) ? true : false;
+// }
+// function isReactComponent(component: any) {
+//     return (
+//         isClassComponent(component) ||
+//         isFunctionComponent(component)
+//     ) ? true : false;
+// }
 //# sourceMappingURL=application.js.map
