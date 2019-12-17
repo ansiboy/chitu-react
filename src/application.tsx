@@ -63,7 +63,7 @@ class DefaultPageNodeParser implements PageNodeParser {
                 throw Errors.canntFindAction(page.name);
             }
 
-            if (isReactComponent(action)) {
+            if (isClassComponent(action)) {
                 console.assert(this.app != null);
                 let app = this.app;
                 let props: PageProps = {
@@ -89,7 +89,7 @@ class DefaultPageNodeParser implements PageNodeParser {
                 (page as Page).component = component
             }
             else {
-                new action(page);
+                action(page);
             }
         }
     }

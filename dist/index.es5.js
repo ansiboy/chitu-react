@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.18.0
+ *  maishu-chitu-react v1.20.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -124,6 +124,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
   return new (P || (P = Promise))(function (resolve, reject) {
     function fulfilled(value) {
       try {
@@ -142,9 +148,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
     }
 
     function step(result) {
-      result.done ? resolve(result.value) : new P(function (resolve) {
-        resolve(result.value);
-      }).then(fulfilled, rejected);
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
     }
 
     step((generator = generator.apply(thisArg, _arguments || [])).next());
@@ -255,7 +259,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
                     throw errors_1.Errors.canntFindAction(page.name);
 
                   case 8:
-                    if (isReactComponent(action)) {
+                    if (isClassComponent(action)) {
                       console.assert(this.app != null);
                       _app = this.app;
                       props = {
@@ -280,7 +284,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
                       component = ReactDOM.render(element, page.element);
                       page.component = component;
                     } else {
-                      new action(page);
+                      action(page);
                     }
 
                   case 9:

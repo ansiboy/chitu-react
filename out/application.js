@@ -1,8 +1,9 @@
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -43,7 +44,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                 if (action == null) {
                     throw errors_1.Errors.canntFindAction(page.name);
                 }
-                if (isReactComponent(action)) {
+                if (isClassComponent(action)) {
                     console.assert(this.app != null);
                     let app = this.app;
                     let props = {
@@ -65,7 +66,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     page.component = component;
                 }
                 else {
-                    new action(page);
+                    action(page);
                 }
             });
         }
