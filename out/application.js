@@ -97,12 +97,16 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
         return (typeof component === 'function' &&
             !!component.prototype.isReactComponent) ? true : false;
     }
-    function isFunctionComponent(component) {
-        return (typeof component === 'function' &&
-            String(component).includes('return React.createElement')) ? true : false;
-    }
-    function isReactComponent(component) {
-        return (isClassComponent(component) ||
-            isFunctionComponent(component)) ? true : false;
-    }
 });
+// function isFunctionComponent(component: any) {
+//     return (
+//         typeof component === 'function' &&
+//         String(component).includes('return React.createElement')
+//     ) ? true : false;
+// }
+// function isReactComponent(component: any) {
+//     return (
+//         isClassComponent(component) ||
+//         isFunctionComponent(component)
+//     ) ? true : false;
+// }

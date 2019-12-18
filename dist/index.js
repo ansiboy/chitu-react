@@ -7,7 +7,17 @@
  *  Licensed under the MIT License.
  * 
  */
-define(["maishu-chitu","react","react-dom"], function(__WEBPACK_EXTERNAL_MODULE_maishu_chitu__, __WEBPACK_EXTERNAL_MODULE_react__, __WEBPACK_EXTERNAL_MODULE_react_dom__) { return /******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("maishu-chitu"), require("react"), require("react-dom"));
+	else if(typeof define === 'function' && define.amd)
+		define(["maishu-chitu", "react", "react-dom"], factory);
+	else {
+		var a = typeof exports === 'object' ? factory(require("maishu-chitu"), require("react"), require("react-dom")) : factory(root["maishu-chitu"], root["react"], root["react-dom"]);
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(typeof window === 'undefined' ? global : window, function(__WEBPACK_EXTERNAL_MODULE_maishu_chitu__, __WEBPACK_EXTERNAL_MODULE_react__, __WEBPACK_EXTERNAL_MODULE_react_dom__) {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -201,16 +211,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
         return (typeof component === 'function' &&
             !!component.prototype.isReactComponent) ? true : false;
     }
-    function isFunctionComponent(component) {
-        return (typeof component === 'function' &&
-            String(component).includes('return React.createElement')) ? true : false;
-    }
-    function isReactComponent(component) {
-        return (isClassComponent(component) ||
-            isFunctionComponent(component)) ? true : false;
-    }
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+// function isFunctionComponent(component: any) {
+//     return (
+//         typeof component === 'function' &&
+//         String(component).includes('return React.createElement')
+//     ) ? true : false;
+// }
+// function isReactComponent(component: any) {
+//     return (
+//         isClassComponent(component) ||
+//         isFunctionComponent(component)
+//     ) ? true : false;
+// }
 
 
 /***/ }),
@@ -297,5 +311,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_react_dom__;
 
 /***/ })
 
-/******/ })});;
+/******/ });
+});
 //# sourceMappingURL=index.js.map
