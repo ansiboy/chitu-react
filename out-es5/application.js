@@ -75,10 +75,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
     return Page;
   }(chitu.Page);
 
-  exports.Page = Page;
-  exports.PageContext = React.createContext({
-    page: null
-  });
+  exports.Page = Page; // export let PageContext = React.createContext<{ page: Page | null }>({ page: null })
 
   var DefaultPageNodeParser =
   /*#__PURE__*/
@@ -170,12 +167,10 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                         createService: function createService(type) {
                           return page.createService(type);
                         }
-                      };
-                      element = React.createElement(exports.PageContext.Provider, {
-                        value: {
-                          page: page
-                        }
-                      }, React.createElement(action, props));
+                      }; // let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
+
+                      element = React.createElement(action, props); // )
+
                       component = ReactDOM.render(element, page.element);
                       page.component = component;
                     } else {

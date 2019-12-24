@@ -17,7 +17,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
         }
     }
     exports.Page = Page;
-    exports.PageContext = React.createContext({ page: null });
+    // export let PageContext = React.createContext<{ page: Page | null }>({ page: null })
     class DefaultPageNodeParser {
         constructor(modulesPath) {
             this.nodes = {};
@@ -61,7 +61,9 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                             return page.createService(type);
                         }
                     };
-                    let element = React.createElement(exports.PageContext.Provider, { value: { page: page } }, React.createElement(action, props));
+                    // let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
+                    let element = React.createElement(action, props);
+                    // )
                     let component = ReactDOM.render(element, page.element);
                     page.component = component;
                 }

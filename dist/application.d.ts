@@ -17,9 +17,6 @@ export declare class Page extends chitu.Page {
     component: React.Component | null;
     app: Application;
 }
-export declare let PageContext: React.Context<{
-    page: Page | null;
-}>;
 declare class DefaultPageNodeParser implements PageNodeParser {
     private nodes;
     private modulesPath;

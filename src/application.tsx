@@ -25,7 +25,7 @@ export class Page extends chitu.Page {
     app: Application
 }
 
-export let PageContext = React.createContext<{ page: Page | null }>({ page: null })
+// export let PageContext = React.createContext<{ page: Page | null }>({ page: null })
 
 class DefaultPageNodeParser implements PageNodeParser {
     private nodes: { [key: string]: PageNode } = {}
@@ -81,9 +81,9 @@ class DefaultPageNodeParser implements PageNodeParser {
                     }
                 }
 
-                let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
-                    React.createElement(action, props)
-                )
+                // let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
+                let element = React.createElement(action, props);
+                // )
 
                 let component = ReactDOM.render(element, page.element) as any as React.Component
                 (page as Page).component = component

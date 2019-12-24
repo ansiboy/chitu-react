@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.20.0
+ *  maishu-chitu-react v1.21.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -190,10 +190,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
     return Page;
   }(chitu.Page);
 
-  exports.Page = Page;
-  exports.PageContext = React.createContext({
-    page: null
-  });
+  exports.Page = Page; // export let PageContext = React.createContext<{ page: Page | null }>({ page: null })
 
   var DefaultPageNodeParser =
   /*#__PURE__*/
@@ -285,12 +282,10 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
                         createService: function createService(type) {
                           return page.createService(type);
                         }
-                      };
-                      element = React.createElement(exports.PageContext.Provider, {
-                        value: {
-                          page: page
-                        }
-                      }, React.createElement(action, props));
+                      }; // let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
+
+                      element = React.createElement(action, props); // )
+
                       component = ReactDOM.render(element, page.element);
                       page.component = component;
                     } else {
@@ -449,11 +444,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
   });
   exports.Application = application_1.Application;
   exports.Page = application_1.Page;
-  exports.PageContext = application_1.PageContext;
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)); // export { dataPage, DataPageContext, DataPageProps, DataPageState } from './data-page'
-// import './css/index.css'
-// import './css/minirefresh.css'
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 //# sourceMappingURL=index.js.map
 
 
