@@ -1,23 +1,13 @@
 /*!
  * 
- *  maishu-chitu-react v1.21.0
+ *  maishu-chitu-react v1.25.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
  * 
  */
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("maishu-chitu"), require("react"), require("react-dom"));
-	else if(typeof define === 'function' && define.amd)
-		define(["maishu-chitu", "react", "react-dom"], factory);
-	else {
-		var a = typeof exports === 'object' ? factory(require("maishu-chitu"), require("react"), require("react-dom")) : factory(root["maishu-chitu"], root["react"], root["react-dom"]);
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
-})(typeof window === 'undefined' ? global : window, function(__WEBPACK_EXTERNAL_MODULE_maishu_chitu__, __WEBPACK_EXTERNAL_MODULE_react__, __WEBPACK_EXTERNAL_MODULE_react_dom__) {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -458,7 +448,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_maishu_chitu__;
+module.exports = maishu-chitu;
 
 /***/ }),
 
@@ -469,7 +459,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_maishu_chitu__;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_react__;
+module.exports = react;
 
 /***/ }),
 
@@ -480,10 +470,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_react__;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_react_dom__;
+module.exports = react-dom;
 
 /***/ })
 
 /******/ });
-});
 //# sourceMappingURL=index.es5.js.map
