@@ -20,5 +20,5 @@ module.exports = {
     externals: ['react', 'react-dom', 'maishu-chitu'],
     plugins: [
         new webpack.BannerPlugin(license),
-    ],
+    ]
 }
