@@ -22,7 +22,7 @@ export interface PageProps {
 
 export class Page extends chitu.Page {
     component: React.Component | null = null;
-    app: Application
+    // app: Application
 }
 
 // export let PageContext = React.createContext<{ page: Page | null }>({ page: null })

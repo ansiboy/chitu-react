@@ -56,6 +56,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
+  exports.Application = exports.Page = void 0;
 
   var Page =
   /*#__PURE__*/
@@ -68,7 +69,8 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
       _classCallCheck(this, Page);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Page).apply(this, arguments));
-      _this.component = null;
+      _this.component = null; // app: Application
+
       return _this;
     }
 

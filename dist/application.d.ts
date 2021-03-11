@@ -15,7 +15,6 @@ export interface PageProps {
 }
 export declare class Page extends chitu.Page {
     component: React.Component | null;
-    app: Application;
 }
 declare class DefaultPageNodeParser implements PageNodeParser {
     private nodes;

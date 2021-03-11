@@ -171,6 +171,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
+  exports.Application = exports.Page = void 0;
 
   var Page =
   /*#__PURE__*/
@@ -183,7 +184,8 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
       _classCallCheck(this, Page);
 
       _this = _possibleConstructorReturn(this, _getPrototypeOf(Page).apply(this, arguments));
-      _this.component = null;
+      _this.component = null; // app: Application
+
       return _this;
     }
 
@@ -393,6 +395,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
+  exports.Errors = void 0;
 
   var Errors =
   /*#__PURE__*/
@@ -442,8 +445,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.Application = application_1.Application;
-  exports.Page = application_1.Page;
+  exports.Page = exports.Application = void 0;
+  Object.defineProperty(exports, "Application", {
+    enumerable: true,
+    get: function get() {
+      return application_1.Application;
+    }
+  });
+  Object.defineProperty(exports, "Page", {
+    enumerable: true,
+    get: function get() {
+      return application_1.Page;
+    }
+  });
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 //# sourceMappingURL=index.js.map

@@ -6,7 +6,18 @@ define(["require", "exports", "./application"], function (require, exports, appl
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.Application = application_1.Application;
-  exports.Page = application_1.Page;
+  exports.Page = exports.Application = void 0;
+  Object.defineProperty(exports, "Application", {
+    enumerable: true,
+    get: function get() {
+      return application_1.Application;
+    }
+  });
+  Object.defineProperty(exports, "Page", {
+    enumerable: true,
+    get: function get() {
+      return application_1.Page;
+    }
+  });
 });
 //# sourceMappingURL=index.js.map

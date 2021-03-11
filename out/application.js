@@ -10,10 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"], function (require, exports, React, ReactDOM, chitu, errors_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Application = exports.Page = void 0;
     class Page extends chitu.Page {
         constructor() {
             super(...arguments);
             this.component = null;
+            // app: Application
         }
     }
     exports.Page = Page;

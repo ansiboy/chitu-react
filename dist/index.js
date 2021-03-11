@@ -124,10 +124,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! react */ "react"), __webpack_require__(/*! react-dom */ "react-dom"), __webpack_require__(/*! maishu-chitu */ "maishu-chitu"), __webpack_require__(/*! ./errors */ "./out/errors.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, React, ReactDOM, chitu, errors_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Application = exports.Page = void 0;
     class Page extends chitu.Page {
         constructor() {
             super(...arguments);
             this.component = null;
+            // app: Application
         }
     }
     exports.Page = Page;
@@ -241,6 +243,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Errors = void 0;
     class Errors {
         static canntFindAction(pageName) {
             let msg = `Cannt find action in page '${pageName}', is the exports has default field?`;
@@ -268,8 +271,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./application */ "./out/application.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, application_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Application = application_1.Application;
-    exports.Page = application_1.Page;
+    exports.Page = exports.Application = void 0;
+    Object.defineProperty(exports, "Application", { enumerable: true, get: function () { return application_1.Application; } });
+    Object.defineProperty(exports, "Page", { enumerable: true, get: function () { return application_1.Page; } });
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
