@@ -17,7 +17,7 @@ module.exports = {
     },
     mode: 'development',
     devtool: 'source-map',
-    externals: ['react', 'react-dom', 'maishu-chitu'],
+    externals: ['react', 'react-dom', 'maishu-chitu', "maishu-chitu-service"],
     plugins: [
         new webpack.BannerPlugin(license),
     ]
