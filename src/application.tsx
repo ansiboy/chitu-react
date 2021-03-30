@@ -63,34 +63,34 @@ class DefaultPageNodeParser implements PageNodeParser {
                 throw Errors.canntFindAction(page.name);
             }
 
-            if (isClassComponent(action)) {
-                console.assert(this.app != null);
-                let app = this.app;
-                let props: PageProps = {
-                    app,
-                    data: page.data as { [key: string]: any },
-                    events: {
-                        shown: page.shown,
-                        showing: page.showing,
-                        hidden: page.hidden,
-                        hiding: page.hiding,
-                    },
-                    source: page as Page,
-                    createService<T extends IService>(type?: ServiceConstructor<T>) {
-                        return page.createService<T>(type)
-                    }
+            // if (isClassComponent(action)) {
+            // console.assert(this.app != null);
+            // let app = this.app;
+            let props: PageProps = {
+                app: app as Application,
+                data: page.data as { [key: string]: any },
+                events: {
+                    shown: page.shown,
+                    showing: page.showing,
+                    hidden: page.hidden,
+                    hiding: page.hiding,
+                },
+                source: page as Page,
+                createService<T extends IService>(type?: ServiceConstructor<T>) {
+                    return page.createService<T>(type)
                 }
-
-                // let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
-                let element = React.createElement(action, props);
-                // )
-
-                let component = ReactDOM.render(element, page.element) as any as React.Component
-                (page as Page).component = component
             }
-            else {
-                action(page);
-            }
+
+            // let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
+            let element = React.createElement(action, props);
+            // )
+
+            let component = ReactDOM.render(element, page.element) as any as React.Component
+            (page as Page).component = component
+            // }
+            // else {
+            //     action(page);
+            // }
         }
     }
 }

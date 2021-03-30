@@ -238,8 +238,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
           return __awaiter(_this3, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee() {
-            var actionExports, action, _app, props, element, component;
-
+            var actionExports, action, props, element, component;
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -268,38 +267,38 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
                     throw errors_1.Errors.canntFindAction(page.name);
 
                   case 8:
-                    if (isClassComponent(action)) {
-                      console.assert(this.app != null);
-                      _app = this.app;
-                      props = {
-                        app: _app,
-                        data: page.data,
-                        events: {
-                          shown: page.shown,
-                          showing: page.showing,
-                          hidden: page.hidden,
-                          hiding: page.hiding
-                        },
-                        source: page,
-                        createService: function createService(type) {
-                          return page.createService(type);
-                        }
-                      }; // let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
+                    // if (isClassComponent(action)) {
+                    // console.assert(this.app != null);
+                    // let app = this.app;
+                    props = {
+                      app: app,
+                      data: page.data,
+                      events: {
+                        shown: page.shown,
+                        showing: page.showing,
+                        hidden: page.hidden,
+                        hiding: page.hiding
+                      },
+                      source: page,
+                      createService: function createService(type) {
+                        return page.createService(type);
+                      }
+                    }; // let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
 
-                      element = React.createElement(action, props); // )
+                    element = React.createElement(action, props); // )
 
-                      component = ReactDOM.render(element, page.element);
-                      page.component = component;
-                    } else {
-                      action(page);
-                    }
+                    component = ReactDOM.render(element, page.element);
+                    page.component = component; // }
+                    // else {
+                    //     action(page);
+                    // }
 
-                  case 9:
+                  case 12:
                   case "end":
                     return _context.stop();
                 }
               }
-            }, _callee, this);
+            }, _callee);
           }));
         };
       }

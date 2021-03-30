@@ -160,32 +160,32 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
                 if (action == null) {
                     throw errors_1.Errors.canntFindAction(page.name);
                 }
-                if (isClassComponent(action)) {
-                    console.assert(this.app != null);
-                    let app = this.app;
-                    let props = {
-                        app,
-                        data: page.data,
-                        events: {
-                            shown: page.shown,
-                            showing: page.showing,
-                            hidden: page.hidden,
-                            hiding: page.hiding,
-                        },
-                        source: page,
-                        createService(type) {
-                            return page.createService(type);
-                        }
-                    };
-                    // let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
-                    let element = React.createElement(action, props);
-                    // )
-                    let component = ReactDOM.render(element, page.element);
-                    page.component = component;
-                }
-                else {
-                    action(page);
-                }
+                // if (isClassComponent(action)) {
+                // console.assert(this.app != null);
+                // let app = this.app;
+                let props = {
+                    app: app,
+                    data: page.data,
+                    events: {
+                        shown: page.shown,
+                        showing: page.showing,
+                        hidden: page.hidden,
+                        hiding: page.hiding,
+                    },
+                    source: page,
+                    createService(type) {
+                        return page.createService(type);
+                    }
+                };
+                // let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
+                let element = React.createElement(action, props);
+                // )
+                let component = ReactDOM.render(element, page.element);
+                page.component = component;
+                // }
+                // else {
+                //     action(page);
+                // }
             });
         }
     }
