@@ -46,9 +46,10 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                 if (action == null) {
                     throw errors_1.Errors.canntFindAction(page.name);
                 }
-                // if (isClassComponent(action)) {
-                // console.assert(this.app != null);
-                // let app = this.app;
+                if (action.prototype.loadData) {
+                    let r = yield action.prototype.loadData();
+                    Object.assign(page.data, r);
+                }
                 let props = {
                     app: app,
                     data: page.data,
@@ -97,11 +98,13 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
         }
     }
     exports.Application = Application;
-    function isClassComponent(component) {
-        return (typeof component === 'function' &&
-            !!component.prototype.isReactComponent) ? true : false;
-    }
 });
+// function isClassComponent(component: any) {
+//     return (
+//         typeof component === 'function' &&
+//         !!component.prototype.isReactComponent
+//     ) ? true : false
+// }
 // function isFunctionComponent(component: any) {
 //     return (
 //         typeof component === 'function' &&

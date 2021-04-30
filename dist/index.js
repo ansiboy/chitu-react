@@ -160,9 +160,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
                 if (action == null) {
                     throw errors_1.Errors.canntFindAction(page.name);
                 }
-                // if (isClassComponent(action)) {
-                // console.assert(this.app != null);
-                // let app = this.app;
+                if (action.prototype.loadData) {
+                    let r = yield action.prototype.loadData();
+                    Object.assign(page.data, r);
+                }
                 let props = {
                     app: app,
                     data: page.data,
@@ -211,12 +212,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
         }
     }
     exports.Application = Application;
-    function isClassComponent(component) {
-        return (typeof component === 'function' &&
-            !!component.prototype.isReactComponent) ? true : false;
-    }
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+// function isClassComponent(component: any) {
+//     return (
+//         typeof component === 'function' &&
+//         !!component.prototype.isReactComponent
+//     ) ? true : false
+// }
 // function isFunctionComponent(component: any) {
 //     return (
 //         typeof component === 'function' &&

@@ -123,7 +123,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
           return __awaiter(_this3, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee() {
-            var actionExports, action, props, element, component;
+            var actionExports, action, r, props, element, component;
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -152,9 +152,19 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     throw errors_1.Errors.canntFindAction(page.name);
 
                   case 8:
-                    // if (isClassComponent(action)) {
-                    // console.assert(this.app != null);
-                    // let app = this.app;
+                    if (!action.prototype.loadData) {
+                      _context.next = 13;
+                      break;
+                    }
+
+                    _context.next = 11;
+                    return action.prototype.loadData();
+
+                  case 11:
+                    r = _context.sent;
+                    Object.assign(page.data, r);
+
+                  case 13:
                     props = {
                       app: app,
                       data: page.data,
@@ -178,7 +188,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     //     action(page);
                     // }
 
-                  case 12:
+                  case 17:
                   case "end":
                     return _context.stop();
                 }
@@ -235,11 +245,13 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
   }(chitu.Application);
 
   exports.Application = Application;
-
-  function isClassComponent(component) {
-    return typeof component === 'function' && !!component.prototype.isReactComponent ? true : false;
-  }
-}); // function isFunctionComponent(component: any) {
+}); // function isClassComponent(component: any) {
+//     return (
+//         typeof component === 'function' &&
+//         !!component.prototype.isReactComponent
+//     ) ? true : false
+// }
+// function isFunctionComponent(component: any) {
 //     return (
 //         typeof component === 'function' &&
 //         String(component).includes('return React.createElement')

@@ -63,9 +63,11 @@ class DefaultPageNodeParser implements PageNodeParser {
                 throw Errors.canntFindAction(page.name);
             }
 
-            // if (isClassComponent(action)) {
-            // console.assert(this.app != null);
-            // let app = this.app;
+            if (action.prototype.loadData) {
+                let r = await action.prototype.loadData();
+                Object.assign(page.data, r);
+            }
+
             let props: PageProps = {
                 app: app as Application,
                 data: page.data as { [key: string]: any },
@@ -131,12 +133,12 @@ export class Application extends chitu.Application {
     }
 }
 
-function isClassComponent(component: any) {
-    return (
-        typeof component === 'function' &&
-        !!component.prototype.isReactComponent
-    ) ? true : false
-}
+// function isClassComponent(component: any) {
+//     return (
+//         typeof component === 'function' &&
+//         !!component.prototype.isReactComponent
+//     ) ? true : false
+// }
 
 // function isFunctionComponent(component: any) {
 //     return (
