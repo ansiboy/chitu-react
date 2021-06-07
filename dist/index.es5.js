@@ -238,7 +238,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
           return __awaiter(_this3, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee() {
-            var actionExports, action, r, props, element, component;
+            var actionExports, action, props, element, component;
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -267,20 +267,21 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
                     throw errors_1.Errors.canntFindAction(page.name);
 
                   case 8:
-                    if (!action.prototype.loadData) {
+                    props = {};
+
+                    if (!action.prototype.loadProps) {
                       _context.next = 13;
                       break;
                     }
 
-                    _context.next = 11;
-                    return action.prototype.loadData();
+                    _context.next = 12;
+                    return action.prototype.loadProps();
 
-                  case 11:
-                    r = _context.sent;
-                    Object.assign(page.data, r);
+                  case 12:
+                    props = _context.sent;
 
                   case 13:
-                    props = {
+                    Object.assign(props, {
                       app: app,
                       data: page.data,
                       events: {
@@ -293,15 +294,10 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
                       createService: function createService(type) {
                         return page.createService(type);
                       }
-                    }; // let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
-
-                    element = React.createElement(action, props); // )
-
+                    });
+                    element = React.createElement(action, props);
                     component = ReactDOM.render(element, page.element);
-                    page.component = component; // }
-                    // else {
-                    //     action(page);
-                    // }
+                    page.component = component;
 
                   case 17:
                   case "end":
@@ -361,24 +357,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
 
   exports.Application = Application;
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)); // function isClassComponent(component: any) {
-//     return (
-//         typeof component === 'function' &&
-//         !!component.prototype.isReactComponent
-//     ) ? true : false
-// }
-// function isFunctionComponent(component: any) {
-//     return (
-//         typeof component === 'function' &&
-//         String(component).includes('return React.createElement')
-//     ) ? true : false;
-// }
-// function isReactComponent(component: any) {
-//     return (
-//         isClassComponent(component) ||
-//         isFunctionComponent(component)
-//     ) ? true : false;
-// }
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 //# sourceMappingURL=application.js.map
 
 

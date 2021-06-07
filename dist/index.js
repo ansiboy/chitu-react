@@ -160,11 +160,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
                 if (action == null) {
                     throw errors_1.Errors.canntFindAction(page.name);
                 }
-                if (action.prototype.loadData) {
-                    let r = yield action.prototype.loadData();
-                    Object.assign(page.data, r);
+                let props = {};
+                if (action.prototype.loadProps) {
+                    props = yield action.prototype.loadProps();
                 }
-                let props = {
+                Object.assign(props, {
                     app: app,
                     data: page.data,
                     events: {
@@ -177,16 +177,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
                     createService(type) {
                         return page.createService(type);
                     }
-                };
-                // let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
+                });
                 let element = React.createElement(action, props);
-                // )
                 let component = ReactDOM.render(element, page.element);
                 page.component = component;
-                // }
-                // else {
-                //     action(page);
-                // }
             });
         }
     }
@@ -214,24 +208,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
     exports.Application = Application;
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-// function isClassComponent(component: any) {
-//     return (
-//         typeof component === 'function' &&
-//         !!component.prototype.isReactComponent
-//     ) ? true : false
-// }
-// function isFunctionComponent(component: any) {
-//     return (
-//         typeof component === 'function' &&
-//         String(component).includes('return React.createElement')
-//     ) ? true : false;
-// }
-// function isReactComponent(component: any) {
-//     return (
-//         isClassComponent(component) ||
-//         isFunctionComponent(component)
-//     ) ? true : false;
-// }
 
 
 /***/ }),

@@ -63,12 +63,12 @@ class DefaultPageNodeParser implements PageNodeParser {
                 throw Errors.canntFindAction(page.name);
             }
 
-            if (action.prototype.loadData) {
-                let r = await action.prototype.loadData();
-                Object.assign(page.data, r);
+            let props = {};
+            if (action.prototype.loadProps) {
+                props = await action.prototype.loadProps();
             }
 
-            let props: PageProps = {
+            Object.assign(props, {
                 app: app as Application,
                 data: page.data as { [key: string]: any },
                 events: {
@@ -79,20 +79,13 @@ class DefaultPageNodeParser implements PageNodeParser {
                 },
                 source: page as Page,
                 createService<T extends IService>(type?: ServiceConstructor<T>) {
-                    return page.createService<T>(type)
+                    return page.createService<T>(type);
                 }
-            }
+            })
 
-            // let element = React.createElement(PageContext.Provider, { value: { page: page as Page } },
             let element = React.createElement(action, props);
-            // )
-
             let component = ReactDOM.render(element, page.element) as any as React.Component
-            (page as Page).component = component
-            // }
-            // else {
-            //     action(page);
-            // }
+            (page as Page).component = component;
         }
     }
 }
@@ -133,26 +126,6 @@ export class Application extends chitu.Application {
     }
 }
 
-// function isClassComponent(component: any) {
-//     return (
-//         typeof component === 'function' &&
-//         !!component.prototype.isReactComponent
-//     ) ? true : false
-// }
-
-// function isFunctionComponent(component: any) {
-//     return (
-//         typeof component === 'function' &&
-//         String(component).includes('return React.createElement')
-//     ) ? true : false;
-// }
-
-// function isReactComponent(component: any) {
-//     return (
-//         isClassComponent(component) ||
-//         isFunctionComponent(component)
-//     ) ? true : false;
-// }
 
 
 
