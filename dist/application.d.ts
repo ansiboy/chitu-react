@@ -3,7 +3,9 @@ import * as chitu from 'maishu-chitu';
 import { PageNodeParser } from "maishu-chitu";
 export interface PageProps {
     app: Application;
-    data: chitu.Page["data"];
+    data: {
+        [key: string]: any;
+    };
     source: Page;
     createService: chitu.Page["createService"];
     events: {

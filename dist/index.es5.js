@@ -165,7 +165,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
   });
 };
 
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! react */ "react"), __webpack_require__(/*! react-dom */ "react-dom"), __webpack_require__(/*! maishu-chitu */ "maishu-chitu"), __webpack_require__(/*! ./errors */ "./out-es5/errors.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, React, ReactDOM, chitu, errors_1) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! react */ "react"), __webpack_require__(/*! react-dom */ "react-dom"), __webpack_require__(/*! maishu-chitu */ "maishu-chitu"), __webpack_require__(/*! ./errors */ "./out-es5/errors.js"), __webpack_require__(/*! ./data-loader */ "./out-es5/data-loader.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, React, ReactDOM, chitu, errors_1, data_loader_1) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
@@ -238,7 +238,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
           return __awaiter(_this3, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee() {
-            var actionExports, action, props, partialProps, element, component;
+            var actionExports, action, props, partialData, element, component;
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -282,17 +282,17 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
                       }
                     };
 
-                    if (!action.loadProps) {
+                    if (!(typeof action[data_loader_1.LOAD_DATA] == "function")) {
                       _context.next = 14;
                       break;
                     }
 
                     _context.next = 12;
-                    return action.loadProps(props);
+                    return action[data_loader_1.LOAD_DATA](props);
 
                   case 12:
-                    partialProps = _context.sent;
-                    Object.assign(props, partialProps);
+                    partialData = _context.sent;
+                    Object.assign(props.data, partialData);
 
                   case 14:
                     element = React.createElement(action, props);
@@ -363,6 +363,40 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
 
 /***/ }),
 
+/***/ "./out-es5/data-loader.js":
+/*!********************************!*\
+  !*** ./out-es5/data-loader.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.dataLoader = exports.LOAD_DATA = void 0;
+  exports.LOAD_DATA = "loadData";
+
+  function dataLoader(loadData) {
+    return function (constructor) {
+      constructor[exports.LOAD_DATA] = loadData;
+      return constructor;
+    };
+  }
+
+  exports.dataLoader = dataLoader;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+//# sourceMappingURL=data-loader.js.map
+
+
+/***/ }),
+
 /***/ "./out-es5/errors.js":
 /*!***************************!*\
   !*** ./out-es5/errors.js ***!
@@ -429,13 +463,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
 
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./application */ "./out-es5/application.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, application_1) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./application */ "./out-es5/application.js"), __webpack_require__(/*! ./data-loader */ "./out-es5/data-loader.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, application_1, data_loader_1) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.Page = exports.Application = void 0;
+  exports.dataLoader = exports.Page = exports.Application = void 0;
   Object.defineProperty(exports, "Application", {
     enumerable: true,
     get: function get() {
@@ -446,6 +480,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
     enumerable: true,
     get: function get() {
       return application_1.Page;
+    }
+  });
+  Object.defineProperty(exports, "dataLoader", {
+    enumerable: true,
+    get: function get() {
+      return data_loader_1.dataLoader;
     }
   });
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),

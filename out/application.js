@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"], function (require, exports, React, ReactDOM, chitu, errors_1) {
+define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors", "./data-loader"], function (require, exports, React, ReactDOM, chitu, errors_1, data_loader_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Application = exports.Page = void 0;
@@ -60,9 +60,9 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                         return page.createService(type);
                     }
                 };
-                if (action.loadProps) {
-                    let partialProps = yield action.loadProps(props);
-                    Object.assign(props, partialProps);
+                if (typeof action[data_loader_1.LOAD_DATA] == "function") {
+                    let partialData = yield action[data_loader_1.LOAD_DATA](props);
+                    Object.assign(props.data, partialData);
                 }
                 let element = React.createElement(action, props);
                 let component = ReactDOM.render(element, page.element);

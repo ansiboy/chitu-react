@@ -3,13 +3,13 @@ import ReactDOM = require("react-dom");
 import * as chitu from 'maishu-chitu'
 import { ServiceConstructor, IService, PageNodeParser, PageNode, Action, PageMaster } from "maishu-chitu";
 import { Errors } from "./errors";
-import { LOAD_DATA } from "data-loader";
+import { LOAD_DATA } from "./data-loader";
 
 type LoadJS = (path: string) => Promise<{ default: any }>;
 
 export interface PageProps {
     app: Application,
-    data: chitu.Page["data"],
+    data: { [key: string]: any },
     source: Page,
     createService: chitu.Page["createService"],
     events: {

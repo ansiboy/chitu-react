@@ -50,7 +50,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
   });
 };
 
-define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"], function (require, exports, React, ReactDOM, chitu, errors_1) {
+define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors", "./data-loader"], function (require, exports, React, ReactDOM, chitu, errors_1, data_loader_1) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
@@ -123,7 +123,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
           return __awaiter(_this3, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee() {
-            var actionExports, action, props, partialProps, element, component;
+            var actionExports, action, props, partialData, element, component;
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -167,17 +167,17 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                       }
                     };
 
-                    if (!action.loadProps) {
+                    if (!(typeof action[data_loader_1.LOAD_DATA] == "function")) {
                       _context.next = 14;
                       break;
                     }
 
                     _context.next = 12;
-                    return action.loadProps(props);
+                    return action[data_loader_1.LOAD_DATA](props);
 
                   case 12:
-                    partialProps = _context.sent;
-                    Object.assign(props, partialProps);
+                    partialData = _context.sent;
+                    Object.assign(props.data, partialData);
 
                   case 14:
                     element = React.createElement(action, props);

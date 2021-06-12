@@ -121,7 +121,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! react */ "react"), __webpack_require__(/*! react-dom */ "react-dom"), __webpack_require__(/*! maishu-chitu */ "maishu-chitu"), __webpack_require__(/*! ./errors */ "./out/errors.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, React, ReactDOM, chitu, errors_1) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! react */ "react"), __webpack_require__(/*! react-dom */ "react-dom"), __webpack_require__(/*! maishu-chitu */ "maishu-chitu"), __webpack_require__(/*! ./errors */ "./out/errors.js"), __webpack_require__(/*! ./data-loader */ "./out/data-loader.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, React, ReactDOM, chitu, errors_1, data_loader_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Application = exports.Page = void 0;
@@ -174,9 +174,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
                         return page.createService(type);
                     }
                 };
-                if (action.loadProps) {
-                    let partialProps = yield action.loadProps(props);
-                    Object.assign(props, partialProps);
+                if (typeof action[data_loader_1.LOAD_DATA] == "function") {
+                    let partialData = yield action[data_loader_1.LOAD_DATA](props);
+                    Object.assign(props.data, partialData);
                 }
                 let element = React.createElement(action, props);
                 let component = ReactDOM.render(element, page.element);
@@ -206,6 +206,31 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
         }
     }
     exports.Application = Application;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }),
+
+/***/ "./out/data-loader.js":
+/*!****************************!*\
+  !*** ./out/data-loader.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.dataLoader = exports.LOAD_DATA = void 0;
+    exports.LOAD_DATA = "loadData";
+    function dataLoader(loadData) {
+        return function (constructor) {
+            constructor[exports.LOAD_DATA] = loadData;
+            return constructor;
+        };
+    }
+    exports.dataLoader = dataLoader;
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
@@ -247,12 +272,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./application */ "./out/application.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, application_1) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./application */ "./out/application.js"), __webpack_require__(/*! ./data-loader */ "./out/data-loader.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, application_1, data_loader_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Page = exports.Application = void 0;
+    exports.dataLoader = exports.Page = exports.Application = void 0;
     Object.defineProperty(exports, "Application", { enumerable: true, get: function () { return application_1.Application; } });
     Object.defineProperty(exports, "Page", { enumerable: true, get: function () { return application_1.Page; } });
+    Object.defineProperty(exports, "dataLoader", { enumerable: true, get: function () { return data_loader_1.dataLoader; } });
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
