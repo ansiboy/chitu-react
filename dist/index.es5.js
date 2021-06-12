@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.30.0
+ *  maishu-chitu-react v1.35.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -238,7 +238,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
           return __awaiter(_this3, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee() {
-            var actionExports, action, props, element, component;
+            var actionExports, action, props, partialProps, element, component;
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -267,21 +267,7 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
                     throw errors_1.Errors.canntFindAction(page.name);
 
                   case 8:
-                    props = {};
-
-                    if (!action.prototype.loadProps) {
-                      _context.next = 13;
-                      break;
-                    }
-
-                    _context.next = 12;
-                    return action.prototype.loadProps();
-
-                  case 12:
-                    props = _context.sent;
-
-                  case 13:
-                    Object.assign(props, {
+                    props = {
                       app: app,
                       data: page.data,
                       events: {
@@ -294,7 +280,21 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
                       createService: function createService(type) {
                         return page.createService(type);
                       }
-                    });
+                    };
+
+                    if (!action.loadProps) {
+                      _context.next = 14;
+                      break;
+                    }
+
+                    _context.next = 12;
+                    return action.loadProps(props);
+
+                  case 12:
+                    partialProps = _context.sent;
+                    Object.assign(props, partialProps);
+
+                  case 14:
                     element = React.createElement(action, props);
                     component = ReactDOM.render(element, page.element);
                     page.component = component;

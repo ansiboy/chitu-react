@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.30.0
+ *  maishu-chitu-react v1.35.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -160,11 +160,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
                 if (action == null) {
                     throw errors_1.Errors.canntFindAction(page.name);
                 }
-                let props = {};
-                if (action.prototype.loadProps) {
-                    props = yield action.prototype.loadProps();
-                }
-                Object.assign(props, {
+                let props = {
                     app: app,
                     data: page.data,
                     events: {
@@ -177,7 +173,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __awaiter = 
                     createService(type) {
                         return page.createService(type);
                     }
-                });
+                };
+                if (action.loadProps) {
+                    let partialProps = yield action.loadProps(props);
+                    Object.assign(props, partialProps);
+                }
                 let element = React.createElement(action, props);
                 let component = ReactDOM.render(element, page.element);
                 page.component = component;

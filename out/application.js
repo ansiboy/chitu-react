@@ -46,11 +46,7 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                 if (action == null) {
                     throw errors_1.Errors.canntFindAction(page.name);
                 }
-                let props = {};
-                if (action.prototype.loadProps) {
-                    props = yield action.prototype.loadProps();
-                }
-                Object.assign(props, {
+                let props = {
                     app: app,
                     data: page.data,
                     events: {
@@ -63,7 +59,11 @@ define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors"],
                     createService(type) {
                         return page.createService(type);
                     }
-                });
+                };
+                if (action.loadProps) {
+                    let partialProps = yield action.loadProps(props);
+                    Object.assign(props, partialProps);
+                }
                 let element = React.createElement(action, props);
                 let component = ReactDOM.render(element, page.element);
                 page.component = component;
