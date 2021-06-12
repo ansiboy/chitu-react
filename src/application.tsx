@@ -3,6 +3,7 @@ import ReactDOM = require("react-dom");
 import * as chitu from 'maishu-chitu'
 import { ServiceConstructor, IService, PageNodeParser, PageNode, Action, PageMaster } from "maishu-chitu";
 import { Errors } from "./errors";
+import { LOAD_DATA } from "data-loader";
 
 type LoadJS = (path: string) => Promise<{ default: any }>;
 
@@ -63,12 +64,7 @@ class DefaultPageNodeParser implements PageNodeParser {
                 throw Errors.canntFindAction(page.name);
             }
 
-            let props = {};
-            if (action.prototype.loadProps) {
-                props = await action.prototype.loadProps();
-            }
-
-            Object.assign(props, {
+            let props = {
                 app: app as Application,
                 data: page.data as { [key: string]: any },
                 events: {
@@ -81,7 +77,12 @@ class DefaultPageNodeParser implements PageNodeParser {
                 createService<T extends IService>(type?: ServiceConstructor<T>) {
                     return page.createService<T>(type);
                 }
-            })
+            };
+
+            if (typeof action[LOAD_DATA] == "function") {
+                let partialData = await action[LOAD_DATA](props);
+                Object.assign(props.data, partialData);
+            }
 
             let element = React.createElement(action, props);
             let component = ReactDOM.render(element, page.element) as any as React.Component
