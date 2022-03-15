@@ -2,7 +2,7 @@
     "compilerOptions": {
         "experimentalDecorators": true,
         "target": "es6",
-        "module": "amd",
+        "module": "CommonJS",
         "declaration": true,
         "baseUrl": "./",
         "outDir": "../out",
@@ -13,7 +13,7 @@
             "maishu-chitu-service": [
                 "../node_modules/maishu-chitu-service/out/index.d.ts",
             ],
-            "csstype":[
+            "csstype": [
                 "../node_modules/csstype/index.d.ts"
             ]
         },

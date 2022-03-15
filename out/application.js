@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,89 +8,158 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-define(["require", "exports", "react", "react-dom", "maishu-chitu", "./errors", "./data-loader"], function (require, exports, React, ReactDOM, chitu, errors_1, data_loader_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Application = exports.Page = void 0;
-    class Page extends chitu.Page {
-        constructor() {
-            super(...arguments);
-            this.component = null;
-            // app: Application
-        }
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Application = exports.Page = void 0;
+const React = require("react");
+const ReactDOM = require("react-dom");
+const chitu = require("maishu-chitu");
+const errors_1 = require("./errors");
+const data_loader_1 = require("./data-loader");
+class Page extends chitu.Page {
+    constructor() {
+        super(...arguments);
+        this.component = null;
     }
-    exports.Page = Page;
-    // export let PageContext = React.createContext<{ page: Page | null }>({ page: null })
-    class DefaultPageNodeParser {
-        constructor(modulesPath) {
-            this.nodes = {};
-            this.modulesPath = modulesPath.endsWith("/") ? modulesPath.substr(0, modulesPath.length - 1) : modulesPath;
-        }
-        parse(pageName) {
-            let node = this.nodes[pageName];
-            if (node == null) {
-                let path = `${pageName}`.split('_').join('/');
-                if (this.modulesPath) {
-                    path = `${this.modulesPath}/${path}`;
-                }
-                node = { action: this.createDefaultAction(path, (path) => this.loadjs(path)), name: pageName };
-                this.nodes[pageName] = node;
+}
+exports.Page = Page;
+class DefaultPageNodeParser {
+    constructor(modulesPath) {
+        this.nodes = {};
+        this.modulesPath = modulesPath.endsWith("/") ? modulesPath.substr(0, modulesPath.length - 1) : modulesPath;
+    }
+    parse(pageName) {
+        let node = this.nodes[pageName];
+        if (node == null) {
+            let path = `${pageName}`.split('_').join('/');
+            if (this.modulesPath) {
+                path = `${this.modulesPath}/${path}`;
             }
-            return node;
+            node = { action: this.createDefaultAction(path, (path) => this.loadjs(path)), name: pageName };
+            this.nodes[pageName] = node;
         }
-        createDefaultAction(url, loadjs) {
-            return (page, app) => __awaiter(this, void 0, void 0, function* () {
-                let actionExports = yield loadjs(url);
-                if (!actionExports)
-                    throw errors_1.Errors.exportsCanntNull(url);
-                let action = actionExports['default'];
-                if (action == null) {
-                    throw errors_1.Errors.canntFindAction(page.name);
+        return node;
+    }
+    createDefaultAction(url, loadjs) {
+        return (page, app) => __awaiter(this, void 0, void 0, function* () {
+            let actionExports = yield loadjs(url);
+            if (!actionExports)
+                throw errors_1.Errors.exportsCanntNull(url);
+            let action = actionExports['default'];
+            if (action == null) {
+                throw errors_1.Errors.canntFindAction(page.name);
+            }
+            let props = {
+                app: app,
+                data: page.data,
+                events: {
+                    shown: page.shown,
+                    showing: page.showing,
+                    hidden: page.hidden,
+                    hiding: page.hiding,
+                },
+                source: page,
+                createService(type) {
+                    return page.createService(type);
                 }
-                let props = {
-                    app: app,
-                    data: page.data,
-                    events: {
-                        shown: page.shown,
-                        showing: page.showing,
-                        hidden: page.hidden,
-                        hiding: page.hiding,
-                    },
-                    source: page,
-                    createService(type) {
-                        return page.createService(type);
+            };
+            if (typeof action[data_loader_1.LOAD_DATA] == "function") {
+                let partialData = yield action[data_loader_1.LOAD_DATA](props);
+                Object.assign(props.data, partialData);
+            }
+            let element = React.createElement(action, props);
+            let component = ReactDOM.render(element, page.element);
+            // let component = ReactDOM.hydrate(element, page.element) as React.Component;
+            page.component = component;
+        });
+    }
+}
+const TargetUrlVariableName = "targetUrl";
+const DefaultPage = "index";
+class Application extends chitu.Application {
+    constructor(args) {
+        args = args || {};
+        if (args.modulesPath === undefined) {
+            args.modulesPath = "modules";
+        }
+        if (!args.parser)
+            args.parser = Application.createPageNodeParser(args.modulesPath);
+        super(args);
+        args.parser.app = this;
+        args.parser.loadjs = (path) => this.loadjs(path);
+        this.defaultPage = args.defaultPage || DefaultPage;
+        this.pageType = Page;
+        let mode = args.mode || "hash";
+        if (mode == "history") {
+            this.run = () => {
+                let routeString = this.getRouteString();
+                this.showPage(routeString);
+            };
+            this.parseUrl = (url) => {
+                let searchIndex = url.indexOf("?");
+                let search;
+                let pathName;
+                if (searchIndex > 0) {
+                    search = url.substr(searchIndex);
+                    pathName = url.substr(0, searchIndex);
+                }
+                else {
+                    pathName = url;
+                }
+                let routers = args === null || args === void 0 ? void 0 : args.routers;
+                let values = {};
+                if (routers != null) {
+                    for (let i = 0; i < routers.length; i++) {
+                        let m = routers[i].match(pathName);
+                        if (m) {
+                            let { controller, action } = m;
+                            if (!controller)
+                                throw new Error(`Can not get controller from route data.`);
+                            if (!action)
+                                throw new Error(`Can not get action from route data.`);
+                            Object.assign(values, m);
+                            break;
+                        }
                     }
-                };
-                if (typeof action[data_loader_1.LOAD_DATA] == "function") {
-                    let partialData = yield action[data_loader_1.LOAD_DATA](props);
-                    Object.assign(props.data, partialData);
                 }
-                let element = React.createElement(action, props);
-                let component = ReactDOM.render(element, page.element);
-                page.component = component;
-            });
+                if (search) {
+                    let q = search.substr(1);
+                    let r = q ? this.pareeUrlQuery(q) : {};
+                    Object.assign(values, r);
+                }
+                let arr = pathName.split("/").filter(o => o);
+                let pageName = arr.length == 0 ? "index" : arr.join("_");
+                return { pageName, values };
+            };
         }
     }
-    class Application extends chitu.Application {
-        constructor(args) {
-            args = args || {};
-            if (args.modulesPath === undefined) {
-                args.modulesPath = "modules";
+    createPageElement(pageName, containerName) {
+        let container = this.containers[containerName];
+        if (container == null)
+            throw errors_1.Errors.containerNotExist(containerName);
+        let e = container.querySelector(`[name="${pageName}"]`);
+        if (e == null) {
+            e = super.createPageElement(pageName, containerName);
+            e.setAttribute("name", pageName);
+        }
+        return e;
+    }
+    getRouteString() {
+        let routeString = window[TargetUrlVariableName];
+        if (!routeString) {
+            routeString = location.pathname || this.defaultPage;
+            if (location.search) {
+                routeString = routeString + location.search;
             }
-            if (!args.parser)
-                args.parser = Application.createPageNodeParser(args.modulesPath);
-            super(args);
-            args.parser.app = this;
-            args.parser.loadjs = (path) => this.loadjs(path);
-            // this.pageCreated.add((sender, page) => {
-            //     page.element.className = "page"
-            // })
-            this.pageType = Page;
         }
-        static createPageNodeParser(modulesPath) {
-            let p = new DefaultPageNodeParser(modulesPath);
-            return p;
+        routeString = routeString.trim();
+        if (routeString[0] == '/') {
+            routeString = routeString.substr(1);
         }
+        return routeString;
     }
-    exports.Application = Application;
-});
+    static createPageNodeParser(modulesPath) {
+        let p = new DefaultPageNodeParser(modulesPath);
+        return p;
+    }
+}
+exports.Application = Application;

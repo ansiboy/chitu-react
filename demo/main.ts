@@ -20,8 +20,8 @@ var requirejsConfig = {
 
 requirejs.config(requirejsConfig);
 
-requirejs(["maishu-chitu-react"], function (mod) {
-    let app = new mod.Application();
+requirejs(["application"], function (mod) {
+    let app = mod.app;
     app.run();
 })
 

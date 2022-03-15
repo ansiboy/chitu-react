@@ -6,38 +6,34 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-define(["require", "exports"], function (require, exports) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.Errors = void 0;
-
-  var Errors =
-  /*#__PURE__*/
-  function () {
-    function Errors() {
-      _classCallCheck(this, Errors);
-    }
-
-    _createClass(Errors, null, [{
-      key: "canntFindAction",
-      value: function canntFindAction(pageName) {
-        var msg = "Cannt find action in page '".concat(pageName, "', is the exports has default field?");
-        return new Error(msg);
-      }
-    }, {
-      key: "exportsCanntNull",
-      value: function exportsCanntNull(pageName) {
-        var msg = "Exports of page '".concat(pageName, "' is null.");
-        return new Error(msg);
-      }
-    }]);
-
-    return Errors;
-  }();
-
-  exports.Errors = Errors;
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+exports.Errors = void 0;
+
+var Errors =
+/*#__PURE__*/
+function () {
+  function Errors() {
+    _classCallCheck(this, Errors);
+  }
+
+  _createClass(Errors, null, [{
+    key: "canntFindAction",
+    value: function canntFindAction(pageName) {
+      var msg = "Cannt find action in page '".concat(pageName, "', is the exports has default field?");
+      return new Error(msg);
+    }
+  }, {
+    key: "exportsCanntNull",
+    value: function exportsCanntNull(pageName) {
+      var msg = "Exports of page '".concat(pageName, "' is null.");
+      return new Error(msg);
+    }
+  }]);
+
+  return Errors;
+}();
+
+exports.Errors = Errors;
 //# sourceMappingURL=errors.js.map
