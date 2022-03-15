@@ -7,4 +7,8 @@ export class Errors {
         let msg = `Exports of page '${pageName}' is null.`;
         return new Error(msg);
     }
+    public static containerNotExist(containerName: string): Error {
+        let msg = `Container ${containerName} is not exists.`;
+        return new Error(msg);
+    }
 }
