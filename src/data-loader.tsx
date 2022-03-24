@@ -7,3 +7,5 @@ export function dataLoader<Props, T>(loadData: LoadData<Props, T>) {
 
     } as any;
 }
+
+export const LOAD_PROPS = "loadProps";
