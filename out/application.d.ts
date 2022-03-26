@@ -2,6 +2,11 @@ import React = require("react");
 import * as chitu from 'maishu-chitu';
 import { PageNodeParser } from "maishu-chitu";
 import { Router } from "maishu-router";
+export interface ComponentModule {
+    default: React.ComponentClass<any>;
+    loadData?: (props: any) => Promise<any>;
+    loadProps?: (data: any, context: Pick<Application, "createService">) => Promise<any>;
+}
 export interface PageProps {
     app: Application;
     data: {

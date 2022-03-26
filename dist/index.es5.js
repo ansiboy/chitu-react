@@ -1,6 +1,6 @@
 /*!
  * 
- *  maishu-chitu-react v1.35.0
+ *  maishu-chitu-react v1.40.0
  *  https://github.com/ansiboy/services-sdk
  *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
@@ -55,32 +55,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -113,13 +98,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -165,199 +154,312 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
   });
 };
 
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! react */ "react"), __webpack_require__(/*! react-dom */ "react-dom"), __webpack_require__(/*! maishu-chitu */ "maishu-chitu"), __webpack_require__(/*! ./errors */ "./out-es5/errors.js"), __webpack_require__(/*! ./data-loader */ "./out-es5/data-loader.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, React, ReactDOM, chitu, errors_1, data_loader_1) {
-  "use strict";
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Application = exports.Page = void 0;
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.Application = exports.Page = void 0;
+var React = __webpack_require__(/*! react */ "react");
 
-  var Page =
-  /*#__PURE__*/
-  function (_chitu$Page) {
-    _inherits(Page, _chitu$Page);
+var ReactDOM = __webpack_require__(/*! react-dom */ "react-dom");
 
-    function Page() {
-      var _this;
+var chitu = __webpack_require__(/*! maishu-chitu */ "maishu-chitu");
 
-      _classCallCheck(this, Page);
+var errors_1 = __webpack_require__(/*! ./errors */ "./out-es5/errors.js");
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Page).apply(this, arguments));
-      _this.component = null; // app: Application
+var data_loader_1 = __webpack_require__(/*! ./data-loader */ "./out-es5/data-loader.js");
 
-      return _this;
-    }
+var Page =
+/*#__PURE__*/
+function (_chitu$Page) {
+  _inherits(Page, _chitu$Page);
 
-    return Page;
-  }(chitu.Page);
+  function Page() {
+    var _this;
 
-  exports.Page = Page; // export let PageContext = React.createContext<{ page: Page | null }>({ page: null })
+    _classCallCheck(this, Page);
 
-  var DefaultPageNodeParser =
-  /*#__PURE__*/
-  function () {
-    function DefaultPageNodeParser(modulesPath) {
-      _classCallCheck(this, DefaultPageNodeParser);
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Page).apply(this, arguments));
+    _this.component = null;
+    return _this;
+  }
 
-      this.nodes = {};
-      this.modulesPath = modulesPath.endsWith("/") ? modulesPath.substr(0, modulesPath.length - 1) : modulesPath;
-    }
+  return Page;
+}(chitu.Page);
 
-    _createClass(DefaultPageNodeParser, [{
-      key: "parse",
-      value: function parse(pageName) {
-        var _this2 = this;
+exports.Page = Page;
 
-        var node = this.nodes[pageName];
+var DefaultPageNodeParser =
+/*#__PURE__*/
+function () {
+  function DefaultPageNodeParser(modulesPath) {
+    _classCallCheck(this, DefaultPageNodeParser);
 
-        if (node == null) {
-          var path = "".concat(pageName).split('_').join('/');
+    this.nodes = {};
+    this.modulesPath = modulesPath.endsWith("/") ? modulesPath.substr(0, modulesPath.length - 1) : modulesPath;
+  }
 
-          if (this.modulesPath) {
-            path = "".concat(this.modulesPath, "/").concat(path);
-          }
+  _createClass(DefaultPageNodeParser, [{
+    key: "parse",
+    value: function parse(pageName) {
+      var _this2 = this;
 
-          node = {
-            action: this.createDefaultAction(path, function (path) {
-              return _this2.loadjs(path);
-            }),
-            name: pageName
-          };
-          this.nodes[pageName] = node;
+      var node = this.nodes[pageName];
+
+      if (node == null) {
+        var path = "".concat(pageName).split('_').join('/');
+
+        if (this.modulesPath) {
+          path = "".concat(this.modulesPath, "/").concat(path);
         }
 
-        return node;
-      }
-    }, {
-      key: "createDefaultAction",
-      value: function createDefaultAction(url, loadjs) {
-        var _this3 = this;
-
-        return function (page, app) {
-          return __awaiter(_this3, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee() {
-            var actionExports, action, props, partialData, element, component;
-            return regeneratorRuntime.wrap(function _callee$(_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    _context.next = 2;
-                    return loadjs(url);
-
-                  case 2:
-                    actionExports = _context.sent;
-
-                    if (actionExports) {
-                      _context.next = 5;
-                      break;
-                    }
-
-                    throw errors_1.Errors.exportsCanntNull(url);
-
-                  case 5:
-                    action = actionExports['default'];
-
-                    if (!(action == null)) {
-                      _context.next = 8;
-                      break;
-                    }
-
-                    throw errors_1.Errors.canntFindAction(page.name);
-
-                  case 8:
-                    props = {
-                      app: app,
-                      data: page.data,
-                      events: {
-                        shown: page.shown,
-                        showing: page.showing,
-                        hidden: page.hidden,
-                        hiding: page.hiding
-                      },
-                      source: page,
-                      createService: function createService(type) {
-                        return page.createService(type);
-                      }
-                    };
-
-                    if (!(typeof action[data_loader_1.LOAD_DATA] == "function")) {
-                      _context.next = 14;
-                      break;
-                    }
-
-                    _context.next = 12;
-                    return action[data_loader_1.LOAD_DATA](props);
-
-                  case 12:
-                    partialData = _context.sent;
-                    Object.assign(props.data, partialData);
-
-                  case 14:
-                    element = React.createElement(action, props);
-                    component = ReactDOM.render(element, page.element);
-                    page.component = component;
-
-                  case 17:
-                  case "end":
-                    return _context.stop();
-                }
-              }
-            }, _callee);
-          }));
+        node = {
+          action: this.createDefaultAction(path, function (path) {
+            return _this2.loadjs(path);
+          }),
+          name: pageName
         };
-      }
-    }]);
-
-    return DefaultPageNodeParser;
-  }();
-
-  var Application =
-  /*#__PURE__*/
-  function (_chitu$Application) {
-    _inherits(Application, _chitu$Application);
-
-    function Application(args) {
-      var _this4;
-
-      _classCallCheck(this, Application);
-
-      args = args || {};
-
-      if (args.modulesPath === undefined) {
-        args.modulesPath = "modules";
+        this.nodes[pageName] = node;
       }
 
-      if (!args.parser) args.parser = Application.createPageNodeParser(args.modulesPath);
-      _this4 = _possibleConstructorReturn(this, _getPrototypeOf(Application).call(this, args));
-      args.parser.app = _assertThisInitialized(_this4);
+      return node;
+    }
+  }, {
+    key: "createDefaultAction",
+    value: function createDefaultAction(url, loadjs) {
+      var _this3 = this;
 
-      args.parser.loadjs = function (path) {
-        return _this4.loadjs(path);
-      }; // this.pageCreated.add((sender, page) => {
-      //     page.element.className = "page"
-      // })
+      return function (page, app) {
+        return __awaiter(_this3, void 0, void 0,
+        /*#__PURE__*/
+        regeneratorRuntime.mark(function _callee() {
+          var actionExports, action, props, loadProps, partialProps, loadData, partialData, element, component;
+          return regeneratorRuntime.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return loadjs(url);
 
+                case 2:
+                  actionExports = _context.sent;
 
-      _this4.pageType = Page;
-      return _this4;
+                  if (actionExports) {
+                    _context.next = 5;
+                    break;
+                  }
+
+                  throw errors_1.Errors.exportsCanntNull(url);
+
+                case 5:
+                  action = actionExports.default;
+
+                  if (!(action == null)) {
+                    _context.next = 8;
+                    break;
+                  }
+
+                  throw errors_1.Errors.canntFindAction(page.name);
+
+                case 8:
+                  props = {
+                    app: app,
+                    data: page.data,
+                    events: {
+                      shown: page.shown,
+                      showing: page.showing,
+                      hidden: page.hidden,
+                      hiding: page.hiding
+                    },
+                    source: page,
+                    createService: function createService(type) {
+                      return page.createService(type);
+                    }
+                  };
+                  loadProps = actionExports.loadProps;
+
+                  if (!(typeof loadProps == "function")) {
+                    _context.next = 15;
+                    break;
+                  }
+
+                  _context.next = 13;
+                  return loadProps(page.data, app);
+
+                case 13:
+                  partialProps = _context.sent;
+                  props = Object.assign(props, partialProps || {});
+
+                case 15:
+                  loadData = actionExports.loadData || action[data_loader_1.LOAD_DATA];
+
+                  if (!(typeof loadData == "function")) {
+                    _context.next = 21;
+                    break;
+                  }
+
+                  _context.next = 19;
+                  return loadData(props);
+
+                case 19:
+                  partialData = _context.sent;
+                  Object.assign(props.data, partialData);
+
+                case 21:
+                  element = React.createElement(action, props);
+                  component = ReactDOM.render(element, page.element); // let component = ReactDOM.hydrate(element, page.element) as React.Component;
+
+                  page.component = component;
+
+                case 24:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+      };
+    }
+  }]);
+
+  return DefaultPageNodeParser;
+}();
+
+var TargetUrlVariableName = "targetUrl";
+var DefaultPage = "index";
+
+var Application =
+/*#__PURE__*/
+function (_chitu$Application) {
+  _inherits(Application, _chitu$Application);
+
+  function Application(args) {
+    var _this4;
+
+    _classCallCheck(this, Application);
+
+    args = args || {};
+
+    if (args.modulesPath === undefined) {
+      args.modulesPath = "modules";
     }
 
-    _createClass(Application, null, [{
-      key: "createPageNodeParser",
-      value: function createPageNodeParser(modulesPath) {
-        var p = new DefaultPageNodeParser(modulesPath);
-        return p;
+    if (!args.parser) args.parser = Application.createPageNodeParser(args.modulesPath);
+    _this4 = _possibleConstructorReturn(this, _getPrototypeOf(Application).call(this, args));
+    args.parser.app = _assertThisInitialized(_this4);
+
+    args.parser.loadjs = function (path) {
+      return _this4.loadjs(path);
+    };
+
+    _this4.defaultPage = args.defaultPage || DefaultPage;
+    _this4.pageType = Page;
+    var mode = args.mode || "hash";
+
+    if (mode == "history") {
+      _this4.run = function () {
+        var routeString = _this4.getRouteString();
+
+        _this4.showPage(routeString);
+      };
+
+      _this4.parseUrl = function (url) {
+        var searchIndex = url.indexOf("?");
+        var search;
+        var pathName;
+
+        if (searchIndex > 0) {
+          search = url.substr(searchIndex);
+          pathName = url.substr(0, searchIndex);
+        } else {
+          pathName = url;
+        }
+
+        var routers = args === null || args === void 0 ? void 0 : args.routers;
+        var values = {};
+
+        if (routers != null) {
+          for (var i = 0; i < routers.length; i++) {
+            var m = routers[i].match(pathName);
+
+            if (m) {
+              var controller = m.controller,
+                  action = m.action;
+              if (!controller) throw new Error("Can not get controller from route data.");
+              if (!action) throw new Error("Can not get action from route data.");
+              Object.assign(values, m);
+              break;
+            }
+          }
+        }
+
+        if (search) {
+          var q = search.substr(1);
+          var r = q ? _this4.pareeUrlQuery(q) : {};
+          Object.assign(values, r);
+        }
+
+        var arr = pathName.split("/").filter(function (o) {
+          return o;
+        });
+        var pageName = arr.length == 0 ? "index" : arr.join("_");
+        return {
+          pageName: pageName,
+          values: values
+        };
+      };
+    }
+
+    return _this4;
+  }
+
+  _createClass(Application, [{
+    key: "createPageElement",
+    value: function createPageElement(pageName, containerName) {
+      var container = this.containers[containerName];
+      if (container == null) throw errors_1.Errors.containerNotExist(containerName);
+      var e = container.querySelector("[name=\"".concat(pageName, "\"]"));
+
+      if (e == null) {
+        e = _get(_getPrototypeOf(Application.prototype), "createPageElement", this).call(this, pageName, containerName);
+        e.setAttribute("name", pageName);
       }
-    }]);
 
-    return Application;
-  }(chitu.Application);
+      return e;
+    }
+  }, {
+    key: "getRouteString",
+    value: function getRouteString() {
+      var routeString = window[TargetUrlVariableName];
 
-  exports.Application = Application;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+      if (!routeString) {
+        routeString = location.pathname || this.defaultPage;
+
+        if (location.search) {
+          routeString = routeString + location.search;
+        }
+      }
+
+      routeString = routeString.trim();
+
+      if (routeString[0] == '/') {
+        routeString = routeString.substr(1);
+      }
+
+      return routeString;
+    }
+  }], [{
+    key: "createPageNodeParser",
+    value: function createPageNodeParser(modulesPath) {
+      var p = new DefaultPageNodeParser(modulesPath);
+      return p;
+    }
+  }]);
+
+  return Application;
+}(chitu.Application);
+
+exports.Application = Application;
 //# sourceMappingURL=application.js.map
 
 
@@ -371,27 +473,23 @@ var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
 
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {
-  "use strict";
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.dataLoader = exports.LOAD_DATA = void 0;
-  exports.LOAD_DATA = "loadData";
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.LOAD_PROPS = exports.dataLoader = exports.LOAD_DATA = void 0;
+exports.LOAD_DATA = "loadData";
 
-  function dataLoader(loadData) {
-    return function (constructor) {
-      constructor[exports.LOAD_DATA] = loadData;
-      return constructor;
-    };
-  }
+function dataLoader(loadData) {
+  return function (constructor) {
+    constructor[exports.LOAD_DATA] = loadData;
+    return constructor;
+  };
+}
 
-  exports.dataLoader = dataLoader;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+exports.dataLoader = dataLoader;
+exports.LOAD_PROPS = "loadProps";
 //# sourceMappingURL=data-loader.js.map
 
 
@@ -405,7 +503,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -413,41 +511,42 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports) {
-  "use strict";
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Errors = void 0;
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.Errors = void 0;
+var Errors =
+/*#__PURE__*/
+function () {
+  function Errors() {
+    _classCallCheck(this, Errors);
+  }
 
-  var Errors =
-  /*#__PURE__*/
-  function () {
-    function Errors() {
-      _classCallCheck(this, Errors);
+  _createClass(Errors, null, [{
+    key: "canntFindAction",
+    value: function canntFindAction(pageName) {
+      var msg = "Cannt find action in page '".concat(pageName, "', is the exports has default field?");
+      return new Error(msg);
     }
+  }, {
+    key: "exportsCanntNull",
+    value: function exportsCanntNull(pageName) {
+      var msg = "Exports of page '".concat(pageName, "' is null.");
+      return new Error(msg);
+    }
+  }, {
+    key: "containerNotExist",
+    value: function containerNotExist(containerName) {
+      var msg = "Container ".concat(containerName, " is not exists.");
+      return new Error(msg);
+    }
+  }]);
 
-    _createClass(Errors, null, [{
-      key: "canntFindAction",
-      value: function canntFindAction(pageName) {
-        var msg = "Cannt find action in page '".concat(pageName, "', is the exports has default field?");
-        return new Error(msg);
-      }
-    }, {
-      key: "exportsCanntNull",
-      value: function exportsCanntNull(pageName) {
-        var msg = "Exports of page '".concat(pageName, "' is null.");
-        return new Error(msg);
-      }
-    }]);
+  return Errors;
+}();
 
-    return Errors;
-  }();
-
-  exports.Errors = Errors;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+exports.Errors = Errors;
 //# sourceMappingURL=errors.js.map
 
 
@@ -461,35 +560,36 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
 
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(/*! ./application */ "./out-es5/application.js"), __webpack_require__(/*! ./data-loader */ "./out-es5/data-loader.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (require, exports, application_1, data_loader_1) {
-  "use strict";
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.dataLoader = exports.Page = exports.Application = void 0;
-  Object.defineProperty(exports, "Application", {
-    enumerable: true,
-    get: function get() {
-      return application_1.Application;
-    }
-  });
-  Object.defineProperty(exports, "Page", {
-    enumerable: true,
-    get: function get() {
-      return application_1.Page;
-    }
-  });
-  Object.defineProperty(exports, "dataLoader", {
-    enumerable: true,
-    get: function get() {
-      return data_loader_1.dataLoader;
-    }
-  });
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.dataLoader = exports.Page = exports.Application = void 0;
+
+var application_1 = __webpack_require__(/*! ./application */ "./out-es5/application.js");
+
+Object.defineProperty(exports, "Application", {
+  enumerable: true,
+  get: function get() {
+    return application_1.Application;
+  }
+});
+Object.defineProperty(exports, "Page", {
+  enumerable: true,
+  get: function get() {
+    return application_1.Page;
+  }
+});
+
+var data_loader_1 = __webpack_require__(/*! ./data-loader */ "./out-es5/data-loader.js");
+
+Object.defineProperty(exports, "dataLoader", {
+  enumerable: true,
+  get: function get() {
+    return data_loader_1.dataLoader;
+  }
+});
 //# sourceMappingURL=index.js.map
 
 

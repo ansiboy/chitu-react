@@ -11,7 +11,7 @@ type LoadJS = (path: string) => Promise<ComponentModule>;
 export interface ComponentModule {
     default: React.ComponentClass<any>,
     loadData?: (props: any) => Promise<any>;
-    loadProps?: (data: any) => Promise<any>;
+    loadProps?: (data: any, context: Pick<Application, "createService">) => Promise<any>;
 }
 
 export interface PageProps {
@@ -85,7 +85,7 @@ class DefaultPageNodeParser implements PageNodeParser {
 
             let loadProps = actionExports.loadProps;
             if (typeof loadProps == "function") {
-                let partialProps = await loadProps(page.data);
+                let partialProps = await loadProps(page.data, app as Application);
                 props = Object.assign(props, partialProps || {});
             }
 

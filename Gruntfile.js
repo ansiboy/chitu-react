@@ -19,7 +19,11 @@ let webpack_es5_min = Object.assign({}, webpack_es5, {
 
 module.exports = function (grunt) {
 
-    require('load-grunt-tasks')(grunt);
+    // require('load-grunt-tasks')(grunt);
+    grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-babel');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-webpack');
 
     grunt.initConfig({
         shell: {
@@ -63,5 +67,5 @@ module.exports = function (grunt) {
         }
     })
 
-    grunt.registerTask('default', ['shell', 'babel', 'webpack', 'copy']);
+    grunt.registerTask('default', ['shell', 'babel', 'copy']);
 }

@@ -30,6 +30,12 @@ function () {
       var msg = "Exports of page '".concat(pageName, "' is null.");
       return new Error(msg);
     }
+  }, {
+    key: "containerNotExist",
+    value: function containerNotExist(containerName) {
+      var msg = "Container ".concat(containerName, " is not exists.");
+      return new Error(msg);
+    }
   }]);
 
   return Errors;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.dataLoader = exports.LOAD_DATA = void 0;
+exports.LOAD_PROPS = exports.dataLoader = exports.LOAD_DATA = void 0;
 exports.LOAD_DATA = "loadData";
 
 function dataLoader(loadData) {
@@ -14,4 +14,5 @@ function dataLoader(loadData) {
 }
 
 exports.dataLoader = dataLoader;
+exports.LOAD_PROPS = "loadProps";
 //# sourceMappingURL=data-loader.js.map

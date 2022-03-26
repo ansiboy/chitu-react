@@ -1,11 +1,11 @@
 /*!
  * 
- *  maishu-chitu-react v1.36.0
+ *  maishu-chitu-react v1.40.0
  *  https://github.com/ansiboy/services-sdk
- *
+ *  
  *  Copyright (c) 2016-2018, shu mai <ansiboy@163.com>
  *  Licensed under the MIT License.
- *
+ * 
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -17,16 +17,87 @@
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
 })(typeof window === 'undefined' ? global : window, function(__WEBPACK_EXTERNAL_MODULE_maishu_chitu__, __WEBPACK_EXTERNAL_MODULE_react__, __WEBPACK_EXTERNAL_MODULE_react_dom__) {
-return /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ({
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./out/index.js");
+/******/ })
+/************************************************************************/
+/******/ ({
 
 /***/ "./out/application.js":
 /*!****************************!*\
   !*** ./out/application.js ***!
   \****************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -37,7 +108,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", ({ value: true }));
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.Application = exports.Page = void 0;
 const React = __webpack_require__(/*! react */ "react");
 const ReactDOM = __webpack_require__(/*! react-dom */ "react-dom");
@@ -73,7 +144,7 @@ class DefaultPageNodeParser {
             let actionExports = yield loadjs(url);
             if (!actionExports)
                 throw errors_1.Errors.exportsCanntNull(url);
-            let action = actionExports['default'];
+            let action = actionExports.default;
             if (action == null) {
                 throw errors_1.Errors.canntFindAction(page.name);
             }
@@ -91,8 +162,14 @@ class DefaultPageNodeParser {
                     return page.createService(type);
                 }
             };
-            if (typeof action[data_loader_1.LOAD_DATA] == "function") {
-                let partialData = yield action[data_loader_1.LOAD_DATA](props);
+            let loadProps = actionExports.loadProps;
+            if (typeof loadProps == "function") {
+                let partialProps = yield loadProps(page.data, app);
+                props = Object.assign(props, partialProps || {});
+            }
+            let loadData = actionExports.loadData || action[data_loader_1.LOAD_DATA];
+            if (typeof loadData == "function") {
+                let partialData = yield loadData(props);
                 Object.assign(props.data, partialData);
             }
             let element = React.createElement(action, props);
@@ -200,11 +277,13 @@ exports.Application = Application;
 /*!****************************!*\
   !*** ./out/data-loader.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, exports) => {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.dataLoader = exports.LOAD_DATA = void 0;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LOAD_PROPS = exports.dataLoader = exports.LOAD_DATA = void 0;
 exports.LOAD_DATA = "loadData";
 function dataLoader(loadData) {
     return function (constructor) {
@@ -213,6 +292,7 @@ function dataLoader(loadData) {
     };
 }
 exports.dataLoader = dataLoader;
+exports.LOAD_PROPS = "loadProps";
 
 
 /***/ }),
@@ -221,10 +301,12 @@ exports.dataLoader = dataLoader;
 /*!***********************!*\
   !*** ./out/errors.js ***!
   \***********************/
-/***/ ((__unused_webpack_module, exports) => {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.Errors = void 0;
 class Errors {
     static canntFindAction(pageName) {
@@ -245,11 +327,32 @@ exports.Errors = Errors;
 
 /***/ }),
 
+/***/ "./out/index.js":
+/*!**********************!*\
+  !*** ./out/index.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.dataLoader = exports.Page = exports.Application = void 0;
+var application_1 = __webpack_require__(/*! ./application */ "./out/application.js");
+Object.defineProperty(exports, "Application", { enumerable: true, get: function () { return application_1.Application; } });
+Object.defineProperty(exports, "Page", { enumerable: true, get: function () { return application_1.Page; } });
+var data_loader_1 = __webpack_require__(/*! ./data-loader */ "./out/data-loader.js");
+Object.defineProperty(exports, "dataLoader", { enumerable: true, get: function () { return data_loader_1.dataLoader; } });
+
+
+/***/ }),
+
 /***/ "maishu-chitu":
 /*!*******************************!*\
   !*** external "maishu-chitu" ***!
   \*******************************/
-/***/ ((module) => {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_maishu_chitu__;
 
@@ -259,7 +362,8 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_maishu_chitu__;
 /*!************************!*\
   !*** external "react" ***!
   \************************/
-/***/ ((module) => {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_react__;
 
@@ -269,59 +373,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_react__;
 /*!****************************!*\
   !*** external "react-dom" ***!
   \****************************/
-/***/ ((module) => {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_react_dom__;
 
 /***/ })
 
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
-var exports = __webpack_exports__;
-/*!**********************!*\
-  !*** ./out/index.js ***!
-  \**********************/
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.dataLoader = exports.Page = exports.Application = void 0;
-var application_1 = __webpack_require__(/*! ./application */ "./out/application.js");
-Object.defineProperty(exports, "Application", ({ enumerable: true, get: function () { return application_1.Application; } }));
-Object.defineProperty(exports, "Page", ({ enumerable: true, get: function () { return application_1.Page; } }));
-var data_loader_1 = __webpack_require__(/*! ./data-loader */ "./out/data-loader.js");
-Object.defineProperty(exports, "dataLoader", ({ enumerable: true, get: function () { return data_loader_1.dataLoader; } }));
-
-})();
-
-/******/ 	return __webpack_exports__;
-/******/ })()
-;
+/******/ });
 });
 //# sourceMappingURL=index.js.map

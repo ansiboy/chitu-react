@@ -1,5 +1,9 @@
 "use strict";
 
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -83,7 +87,7 @@ function (_chitu$Page) {
   return Page;
 }(chitu.Page);
 
-exports.Page = Page; // export let PageContext = React.createContext<{ page: Page | null }>({ page: null })
+exports.Page = Page;
 
 var DefaultPageNodeParser =
 /*#__PURE__*/
@@ -129,7 +133,7 @@ function () {
         return __awaiter(_this3, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee() {
-          var actionExports, action, props, partialData, element, component;
+          var actionExports, action, props, loadProps, partialProps, loadData, partialData, element, component;
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
@@ -148,7 +152,7 @@ function () {
                   throw errors_1.Errors.exportsCanntNull(url);
 
                 case 5:
-                  action = actionExports['default'];
+                  action = actionExports.default;
 
                   if (!(action == null)) {
                     _context.next = 8;
@@ -172,25 +176,42 @@ function () {
                       return page.createService(type);
                     }
                   };
+                  loadProps = actionExports.loadProps;
 
-                  if (!(typeof action[data_loader_1.LOAD_DATA] == "function")) {
-                    _context.next = 14;
+                  if (!(typeof loadProps == "function")) {
+                    _context.next = 15;
                     break;
                   }
 
-                  _context.next = 12;
-                  return action[data_loader_1.LOAD_DATA](props);
+                  _context.next = 13;
+                  return loadProps(page.data, app);
 
-                case 12:
+                case 13:
+                  partialProps = _context.sent;
+                  props = Object.assign(props, partialProps || {});
+
+                case 15:
+                  loadData = actionExports.loadData || action[data_loader_1.LOAD_DATA];
+
+                  if (!(typeof loadData == "function")) {
+                    _context.next = 21;
+                    break;
+                  }
+
+                  _context.next = 19;
+                  return loadData(props);
+
+                case 19:
                   partialData = _context.sent;
                   Object.assign(props.data, partialData);
 
-                case 14:
+                case 21:
                   element = React.createElement(action, props);
-                  component = ReactDOM.render(element, page.element);
+                  component = ReactDOM.render(element, page.element); // let component = ReactDOM.hydrate(element, page.element) as React.Component;
+
                   page.component = component;
 
-                case 17:
+                case 24:
                 case "end":
                   return _context.stop();
               }
@@ -293,6 +314,20 @@ function (_chitu$Application) {
   }
 
   _createClass(Application, [{
+    key: "createPageElement",
+    value: function createPageElement(pageName, containerName) {
+      var container = this.containers[containerName];
+      if (container == null) throw errors_1.Errors.containerNotExist(containerName);
+      var e = container.querySelector("[name=\"".concat(pageName, "\"]"));
+
+      if (e == null) {
+        e = _get(_getPrototypeOf(Application.prototype), "createPageElement", this).call(this, pageName, containerName);
+        e.setAttribute("name", pageName);
+      }
+
+      return e;
+    }
+  }, {
     key: "getRouteString",
     value: function getRouteString() {
       var routeString = window[TargetUrlVariableName];

@@ -44,7 +44,7 @@ class DefaultPageNodeParser {
             let actionExports = yield loadjs(url);
             if (!actionExports)
                 throw errors_1.Errors.exportsCanntNull(url);
-            let action = actionExports['default'];
+            let action = actionExports.default;
             if (action == null) {
                 throw errors_1.Errors.canntFindAction(page.name);
             }
@@ -62,8 +62,14 @@ class DefaultPageNodeParser {
                     return page.createService(type);
                 }
             };
-            if (typeof action[data_loader_1.LOAD_DATA] == "function") {
-                let partialData = yield action[data_loader_1.LOAD_DATA](props);
+            let loadProps = actionExports.loadProps;
+            if (typeof loadProps == "function") {
+                let partialProps = yield loadProps(page.data, app);
+                props = Object.assign(props, partialProps || {});
+            }
+            let loadData = actionExports.loadData || action[data_loader_1.LOAD_DATA];
+            if (typeof loadData == "function") {
+                let partialData = yield loadData(props);
                 Object.assign(props.data, partialData);
             }
             let element = React.createElement(action, props);

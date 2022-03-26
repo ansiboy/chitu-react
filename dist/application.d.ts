@@ -1,6 +1,12 @@
 import React = require("react");
 import * as chitu from 'maishu-chitu';
 import { PageNodeParser } from "maishu-chitu";
+import { Router } from "maishu-router";
+export interface ComponentModule {
+    default: React.ComponentClass<any>;
+    loadData?: (props: any) => Promise<any>;
+    loadProps?: (data: any, context: Pick<Application, "createService">) => Promise<any>;
+}
 export interface PageProps {
     app: Application;
     data: {
@@ -28,15 +34,21 @@ declare class DefaultPageNodeParser implements PageNodeParser {
     private createDefaultAction;
 }
 export declare class Application extends chitu.Application {
+    private defaultPage;
     constructor(args?: {
         parser?: chitu.PageNodeParser;
         /** 页面容器 */
         container?: HTMLElement | {
             [name: string]: HTMLElement;
         };
-        /** 模块路径 */
+        /** 页面路径, 默认为 modules */
         modulesPath?: string;
+        mode?: "history" | "hash";
+        routers?: Router[];
+        defaultPage?: string;
     });
+    createPageElement(pageName: string, containerName: string): HTMLElement;
+    private getRouteString;
     static createPageNodeParser(modulesPath: string): DefaultPageNodeParser;
 }
 export {};
